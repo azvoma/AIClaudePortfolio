@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Andrew Zvoma – WordPress & AI Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+/* ══════════════════════════════════════════════
+   TOKENS  —  Xtract dark/purple theme
+══════════════════════════════════════════════ */
+:root{
+  --bg:       #07060d;          /* near-black */
+  --bg2:      #0d0b18;          /* card/section bg */
+  --bg3:      #120f22;          /* lighter card */
+  --purple:   #7c3aed;          /* primary violet */
+  --purple-l: #a855f7;          /* lighter violet */
+  --glow:     #7c3aed;
+  --white:    #ffffff;
+  --off:      #e8e4f0;
+  --muted:    #8b85a1;
+  --border:   rgba(124,58,237,.22);
+  --border2:  rgba(255,255,255,.07);
+  --grad: linear-gradient(135deg,#7c3aed 0%,#a855f7 60%,#c084fc 100%);
+  --grad-glow: radial-gradient(ellipse 60% 50% at 50% -10%, rgba(124,58,237,.55) 0%, transparent 70%);
+  --r: 14px;
+  --r-sm: 8px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--white);font-family:'Inter',sans-serif;font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+
+/* ── global scrollbar ── */
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--purple);border-radius:2px}
+
+/* ══════════════════════════════════════════════  NAV  */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:300;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:.9rem 5vw;
+  background:rgba(7,6,13,.75);
+  backdrop-filter:blur(18px);
+  border-bottom:1px solid var(--border2);
+}
+.logo{
+  font-size:1rem;font-weight:800;letter-spacing:-.02em;
+  color:var(--white);cursor:pointer;text-decoration:none;display:flex;align-items:center;gap:.55rem;
+}
+
+.nav-links{display:flex;gap:1.8rem;list-style:none;align-items:center}
+.nav-links a{
+  font-size:.84rem;font-weight:500;color:var(--muted);cursor:pointer;
+  text-decoration:none;transition:color .2s;letter-spacing:.01em;
+}
+.nav-links a:hover,.nav-links a.active{color:var(--white)}
+.nav-pill{
+  display:inline-flex;align-items:center;gap:.4rem;
+  padding:.55rem 1.3rem;border-radius:50px;
+  background:var(--grad);color:#fff;
+  font-size:.82rem;font-weight:600;cursor:pointer;
+  border:none;text-decoration:none;
+  box-shadow:0 0 22px rgba(124,58,237,.55),0 2px 12px rgba(124,58,237,.35);
+  transition:opacity .2s,transform .2s,box-shadow .2s;
+  letter-spacing:.01em;
+}
+.nav-pill:hover{opacity:.88;transform:translateY(-2px);box-shadow:0 0 32px rgba(124,58,237,.7),0 4px 20px rgba(124,58,237,.45)}
+
+/* ══════════════════════════════════════════════  PAGE SYSTEM  */
+.page{display:none;padding-top:66px;min-height:100vh}
+.page.active{display:block}
+
+/* ══════════════════════════════════════════════  UTILITIES  */
+.grad-text{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.fade-in{opacity:0;transform:translateY(22px);transition:opacity .65s ease,transform .65s ease}
+.fade-in.visible{opacity:1;transform:translateY(0)}
+.s-label{font-size:.68rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--purple-l);margin-bottom:.55rem;display:block}
+
+/* pill button */
+.btn-primary{
+  display:inline-flex;align-items:center;gap:.45rem;
+  padding:.72rem 1.7rem;border-radius:50px;
+  background:var(--grad);color:#fff;font-size:.875rem;font-weight:600;
+  cursor:pointer;border:none;text-decoration:none;
+  box-shadow:0 0 24px rgba(124,58,237,.45);
+  transition:opacity .2s,transform .2s;
+}
+.btn-primary:hover{opacity:.88;transform:translateY(-2px)}
+.btn-secondary{
+  display:inline-flex;align-items:center;gap:.45rem;
+  padding:.7rem 1.65rem;border-radius:50px;
+  background:transparent;color:var(--white);
+  border:1px solid rgba(255,255,255,.2);font-size:.875rem;font-weight:500;
+  cursor:pointer;text-decoration:none;
+  transition:border-color .2s,background .2s;
+}
+.btn-secondary:hover{border-color:var(--purple-l);background:rgba(124,58,237,.12)}
+.badge{
+  display:inline-flex;align-items:center;gap:.4rem;
+  padding:.3rem .85rem;border-radius:50px;
+  background:rgba(124,58,237,.18);color:var(--purple-l);
+  font-size:.72rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+  border:1px solid var(--border);
+}
+
+/* card shell */
+.card{
+  background:var(--bg2);border:1px solid var(--border2);
+  border-radius:var(--r);overflow:hidden;
+}
+
+/* ══════════════════════════════════════════════  HOME — HERO  */
+.hero-wrap{
+  min-height:calc(100vh - 66px);
+  position:relative;display:flex;flex-direction:column;justify-content:center;
+  padding:4rem 5vw 5rem;overflow:hidden;
+}
+/* starfield noise overlay */
+.hero-wrap::before{
+  content:'';position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% -5%, rgba(124,58,237,.5) 0%, transparent 65%),
+    radial-gradient(ellipse 40% 40% at 80% 80%, rgba(168,85,247,.15) 0%, transparent 60%);
+  pointer-events:none;
+}
+/* big glowing orb */
+.hero-orb{
+  position:absolute;width:520px;height:520px;border-radius:50%;
+  background:radial-gradient(circle, rgba(124,58,237,.7) 0%, rgba(88,28,220,.35) 40%, transparent 70%);
+  top:50%;left:50%;transform:translate(-50%,-55%);
+  filter:blur(60px);pointer-events:none;
+  animation:pulse 6s ease-in-out infinite;
+}
+@keyframes pulse{0%,100%{opacity:.6;transform:translate(-50%,-55%) scale(1)}50%{opacity:.9;transform:translate(-50%,-57%) scale(1.06)}}
+
+.hero-inner{position:relative;z-index:2;max-width:1200px;display:grid;grid-template-columns:1fr auto;gap:3rem;align-items:center}
+.hero-text{}
+.hero-badge-row{margin-bottom:1.6rem}
+.hero-h1{
+  font-size:clamp(2.8rem,6.5vw,5.8rem);font-weight:900;line-height:1.01;
+  letter-spacing:-.04em;color:var(--white);margin-bottom:1.4rem;
+}
+.hero-h1 .dim{color:var(--muted)}
+.hero-sub{font-size:1rem;color:var(--muted);max-width:500px;line-height:1.78;margin-bottom:2.2rem}
+.hero-btns{display:flex;gap:.9rem;flex-wrap:wrap}
+.hero-chips{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:2.5rem}
+.chip{
+  padding:.28rem .78rem;border-radius:50px;
+  background:rgba(255,255,255,.04);color:var(--muted);
+  font-size:.73rem;font-weight:500;border:1px solid var(--border2);
+  transition:border-color .2s,color .2s;
+}
+.chip:hover{border-color:var(--border);color:var(--purple-l)}
+
+/* hero photo card */
+.hero-photo-card{
+  background:rgba(255,255,255,.03);
+  border:1px solid var(--border2);border-radius:20px;
+  padding:1.2rem 1.2rem 1rem;text-align:center;flex-shrink:0;
+  position:relative;overflow:hidden;min-width:200px;
+}
+.hero-photo-card::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 80% 50% at 50% 0%, rgba(124,58,237,.25) 0%, transparent 70%);
+  pointer-events:none;
+}
+.hero-photo-card img{
+  width:160px;height:160px;border-radius:50%;object-fit:cover;
+  border:2px solid rgba(124,58,237,.5);display:block;margin:0 auto .9rem;
+  box-shadow:0 0 30px rgba(124,58,237,.4);
+}
+.hero-photo-name{font-size:.95rem;font-weight:700;color:var(--white);margin-bottom:.2rem;letter-spacing:-.01em}
+.hero-photo-role{font-size:.74rem;color:var(--muted);font-weight:500}
+.avail-dot{
+  display:inline-flex;align-items:center;gap:.4rem;
+  margin-top:.6rem;font-size:.7rem;color:#4ade80;font-weight:600;
+}
+.avail-dot::before{content:'';width:7px;height:7px;border-radius:50%;background:#4ade80;display:inline-block;box-shadow:0 0 6px #4ade80;animation:blink 2s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.4}}
+
+/* ══════════════════════════════════════════════  STATS BAR  */
+.stats-bar{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  border-top:1px solid var(--border2);border-bottom:1px solid var(--border2);
+  background:var(--bg2);
+}
+.stat-item{
+  padding:2rem 1.5rem;text-align:center;border-right:1px solid var(--border2);
+}
+.stat-item:last-child{border-right:none}
+.stat-n{
+  font-size:2.4rem;font-weight:900;letter-spacing:-.04em;line-height:1;
+  background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.stat-l{font-size:.75rem;color:var(--muted);font-weight:500;margin-top:.35rem;letter-spacing:.02em}
+
+/* ══════════════════════════════════════════════  SECTION HEADER  */
+.sec-head{padding:4.5rem 5vw 2rem}
+.sec-head h2{font-size:clamp(2rem,4vw,2.8rem);font-weight:800;letter-spacing:-.04em;color:var(--white);margin-top:.5rem}
+
+/* ══════════════════════════════════════════════  PROJECT CARDS  */
+.projects-wrap{padding:0 5vw 5rem}
+.projects-list{display:flex;flex-direction:column;gap:1px;background:var(--border2)}
+
+.pcard{
+  display:grid;grid-template-columns:1fr 1fr;
+  background:var(--bg);transition:background .3s;
+}
+.pcard:hover{background:var(--bg2)}
+.pcard.rev{direction:rtl}
+.pcard.rev>*{direction:ltr}
+
+.pcard-visual{
+  position:relative;overflow:hidden;min-height:340px;
+  display:flex;align-items:center;justify-content:center;
+}
+.pcard-visual-inner{
+  width:100%;height:100%;min-height:340px;
+  display:flex;align-items:center;justify-content:center;
+  flex-direction:column;gap:1.2rem;
+  position:relative;transition:transform .55s ease;
+}
+.pcard:hover .pcard-visual-inner{transform:scale(1.03)}
+
+/* coloured gradient backgrounds per card */
+.pv-wp1{background:linear-gradient(145deg,#0d1b4b 0%,#1a237e 50%,#283593 100%)}
+.pv-ai1{background:linear-gradient(145deg,#1a0533 0%,#4a0e7a 50%,#7c3aed 100%)}
+.pv-wp2{background:linear-gradient(145deg,#0a2a1a 0%,#1b5e20 50%,#2e7d32 100%)}
+.pv-ai2{background:linear-gradient(145deg,#1a0a2e 0%,#6b21a8 50%,#a855f7 100%)}
+.pv-wp3{background:linear-gradient(145deg,#0c1f3f 0%,#0d47a1 50%,#1565c0 100%)}
+.pv-ai3{background:linear-gradient(145deg,#120820 0%,#2d1b69 50%,#4c1d95 100%)}
+
+/* glow circle behind icon */
+.pv-glow{
+  position:absolute;width:200px;height:200px;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,255,255,.12) 0%,transparent 70%);
+  filter:blur(20px);pointer-events:none;
+}
+.pcard-icon-box{
+  width:80px;height:80px;background:rgba(255,255,255,.1);border-radius:20px;
+  display:flex;align-items:center;justify-content:center;
+  border:1px solid rgba(255,255,255,.15);backdrop-filter:blur(8px);
+  position:relative;z-index:1;
+}
+.pcard-icon-box svg{width:40px;height:40px}
+.pcard-vis-label{
+  font-size:.65rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
+  color:rgba(255,255,255,.5);position:relative;z-index:1;
+}
+
+.pcard-body{padding:2.8rem 3rem;display:flex;flex-direction:column;justify-content:center}
+.pcard-type{
+  font-size:.65rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--purple-l);margin-bottom:.7rem;
+}
+.pcard-title{
+  font-size:clamp(1.2rem,2vw,1.7rem);font-weight:800;letter-spacing:-.03em;
+  line-height:1.2;margin-bottom:.9rem;color:var(--white);
+}
+.pcard-desc{font-size:.88rem;color:var(--muted);line-height:1.78;margin-bottom:1.4rem}
+.pills{display:flex;flex-wrap:wrap;gap:.35rem;margin-bottom:1.4rem}
+.pill{
+  padding:.2rem .7rem;border-radius:50px;
+  background:rgba(124,58,237,.12);color:var(--purple-l);
+  font-size:.7rem;font-weight:500;border:1px solid var(--border);
+}
+.arrow-link{
+  display:inline-flex;align-items:center;gap:.45rem;
+  color:var(--white);font-size:.82rem;font-weight:600;cursor:pointer;
+  text-decoration:none;transition:gap .2s,color .2s;
+}
+.arrow-link:hover{gap:.75rem;color:var(--purple-l)}
+.arrow-link::after{content:'→';font-size:.95rem}
+
+/* ══════════════════════════════════════════════  CONTACT STRIP  */
+.contact-strip{
+  position:relative;overflow:hidden;
+  padding:6rem 5vw;text-align:center;
+  background:var(--bg2);border-top:1px solid var(--border2);
+}
+.contact-strip::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 70% 60% at 50% 0%,rgba(124,58,237,.35) 0%,transparent 70%);
+  pointer-events:none;
+}
+.contact-strip h2{
+  font-size:clamp(2rem,5vw,3.8rem);font-weight:900;letter-spacing:-.04em;
+  color:var(--white);line-height:1.05;margin-bottom:1.1rem;position:relative;
+}
+.contact-strip p{font-size:.95rem;color:var(--muted);margin-bottom:2rem;position:relative}
+
+/* ══════════════════════════════════════════════  FOOTER  */
+footer{
+  padding:1.4rem 5vw;display:flex;justify-content:space-between;align-items:center;
+  font-size:.78rem;color:var(--muted);
+  background:var(--bg);border-top:1px solid var(--border2);flex-wrap:wrap;gap:.5rem;
+}
+footer a{color:var(--purple-l);text-decoration:none}
+footer a:hover{color:var(--white)}
+
+/* ══════════════════════════════════════════════  ABOUT PAGE  */
+.about-hero{
+  position:relative;overflow:hidden;
+  padding:5rem 5vw 4rem;
+  background:var(--bg2);border-bottom:1px solid var(--border2);
+}
+.about-hero::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 70% 80% at -10% 50%,rgba(124,58,237,.3) 0%,transparent 60%);
+  pointer-events:none;
+}
+.about-hero-grid{display:grid;grid-template-columns:auto 1fr;gap:4.5rem;align-items:center;position:relative;z-index:2;max-width:1200px}
+.about-photo-wrap{position:relative;flex-shrink:0}
+.about-photo{
+  width:240px;height:280px;object-fit:cover;border-radius:20px;display:block;
+  border:1px solid rgba(124,58,237,.4);
+  box-shadow:0 0 60px rgba(124,58,237,.3),0 20px 60px rgba(0,0,0,.5);
+}
+.about-badge{
+  position:absolute;bottom:-14px;left:50%;transform:translateX(-50%);
+  background:var(--bg3);border:1px solid var(--border);
+  padding:.4rem 1rem;border-radius:50px;
+  font-size:.7rem;font-weight:700;color:var(--purple-l);white-space:nowrap;
+}
+.about-hero h1{
+  font-size:clamp(1.8rem,3.5vw,3rem);font-weight:900;letter-spacing:-.04em;
+  color:var(--white);line-height:1.1;margin-bottom:1.1rem;
+}
+.about-hero p{font-size:.95rem;color:var(--muted);line-height:1.82;max-width:560px}
+
+/* about skills / edu body */
+.about-body{padding:4rem 5vw;display:grid;grid-template-columns:1fr 1fr;gap:4.5rem;max-width:1200px}
+.about-sec-title{
+  font-size:1rem;font-weight:700;color:var(--white);margin-bottom:1.2rem;
+  display:flex;align-items:center;gap:.55rem;letter-spacing:-.01em;
+}
+.about-sec-title svg{color:var(--purple-l);flex-shrink:0}
+.skill-tag{
+  display:inline-flex;align-items:center;gap:.4rem;
+  padding:.35rem .85rem;border-radius:50px;margin:.2rem;
+  background:rgba(124,58,237,.1);color:var(--muted);
+  font-size:.8rem;font-weight:500;border:1px solid var(--border);
+  transition:all .2s;cursor:default;
+}
+.skill-tag:hover{background:rgba(124,58,237,.2);color:var(--white);border-color:var(--purple)}
+.skill-tag svg{width:13px;height:13px;color:var(--purple-l);flex-shrink:0}
+.edu-row{padding:.85rem 0;border-bottom:1px solid var(--border2);display:flex;flex-direction:column;gap:.1rem}
+.edu-row:last-child{border-bottom:none}
+.edu-name{font-size:.9rem;font-weight:700;color:var(--white)}
+.edu-org{font-size:.8rem;color:var(--muted)}
+.edu-year{
+  display:inline-block;margin-top:.18rem;
+  font-size:.68rem;font-weight:700;color:var(--purple-l);
+  padding:.08rem .55rem;background:rgba(124,58,237,.12);
+  border-radius:50px;border:1px solid var(--border);width:fit-content;
+}
+.git-section{
+  text-align:center;padding:5rem 5vw;
+  background:var(--bg);border-top:1px solid var(--border2);
+  position:relative;overflow:hidden;
+}
+.git-section::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 60% 70% at 50% 100%,rgba(124,58,237,.28) 0%,transparent 65%);
+  pointer-events:none;
+}
+.git-section h2{font-size:clamp(2.5rem,6vw,5rem);font-weight:900;letter-spacing:-.05em;line-height:1;margin-bottom:1.4rem;position:relative}
+.git-section p{color:var(--muted);font-size:.95rem;margin-bottom:2rem;position:relative}
+
+/* ══════════════════════════════════════════════  PORTFOLIO PAGE  */
+.port-hero{
+  position:relative;overflow:hidden;padding:4.5rem 5vw 3.5rem;
+  background:var(--bg2);border-bottom:1px solid var(--border2);
+}
+.port-hero::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 60% 80% at 100% 50%,rgba(124,58,237,.25) 0%,transparent 60%);
+  pointer-events:none;
+}
+.port-hero h1{font-size:clamp(2.4rem,5vw,4rem);font-weight:900;letter-spacing:-.05em;color:var(--white);line-height:1.04;max-width:680px;position:relative}
+.port-hero p{font-size:.95rem;color:var(--muted);max-width:480px;margin-top:.9rem;position:relative}
+.filter-bar{display:flex;gap:.5rem;flex-wrap:wrap;padding:1.6rem 5vw;background:var(--bg);border-bottom:1px solid var(--border2)}
+.ftab{
+  padding:.38rem 1rem;border-radius:50px;font-size:.78rem;font-weight:600;
+  cursor:pointer;background:rgba(255,255,255,.04);color:var(--muted);
+  border:1px solid var(--border2);transition:all .2s;
+}
+.ftab.active,.ftab:hover{background:rgba(124,58,237,.2);color:var(--white);border-color:var(--border)}
+
+/* ══════════════════════════════════════════════  CASE STUDY  */
+.cs-hero{
+  position:relative;overflow:hidden;padding:4rem 5vw 3rem;
+  background:var(--bg2);border-bottom:1px solid var(--border2);
+}
+.cs-hero::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 70% 80% at 50% -10%,rgba(124,58,237,.4) 0%,transparent 65%);
+  pointer-events:none;
+}
+.cs-type{font-size:.67rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--purple-l);margin-bottom:.8rem;position:relative}
+.cs-title{font-size:clamp(1.8rem,4vw,3.2rem);font-weight:900;letter-spacing:-.04em;color:var(--white);line-height:1.06;max-width:820px;margin-bottom:2rem;position:relative}
+.cs-banner{width:100%;height:clamp(200px,26vw,360px);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1rem;position:relative;overflow:hidden}
+.cs-banner-glow{position:absolute;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(124,58,237,.5) 0%,transparent 70%);filter:blur(40px);pointer-events:none}
+.cs-banner-icon{width:90px;height:90px;background:rgba(255,255,255,.08);border-radius:22px;display:flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,.12);position:relative;z-index:1}
+.cs-banner-icon svg{width:48px;height:48px}
+.cs-banner-lbl{font-size:.65rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.4);position:relative;z-index:1}
+.cs-meta-bar{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));background:var(--bg3);border-bottom:1px solid var(--border2)}
+.cs-meta-item{padding:1.5rem 2rem;border-right:1px solid var(--border2)}
+.cs-meta-item:last-child{border-right:none}
+.cs-meta-label{font-size:.63rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--purple-l);margin-bottom:.3rem}
+.cs-meta-val{font-size:.88rem;color:var(--white);font-weight:600;line-height:1.4}
+.cs-body{padding:3.5rem 5vw;max-width:900px}
+.cs-body h2{font-size:clamp(1.4rem,2.5vw,2rem);font-weight:800;letter-spacing:-.03em;margin:2.8rem 0 .8rem;color:var(--white)}
+.cs-body h3{font-size:.95rem;font-weight:700;margin:1.3rem 0 .4rem;color:var(--white)}
+.cs-body p{font-size:.9rem;color:var(--muted);line-height:1.82;margin-bottom:.9rem}
+.cs-body ul{margin:.4rem 0 1rem 1.2rem}
+.cs-body ul li{font-size:.88rem;color:var(--muted);line-height:1.72;margin-bottom:.3rem}
+.cs-body blockquote{
+  border-left:3px solid var(--purple);padding:.9rem 1.3rem;
+  background:rgba(124,58,237,.07);margin:1.2rem 0;border-radius:0 var(--r-sm) var(--r-sm) 0;
+  font-style:italic;color:var(--muted);font-size:.9rem;
+}
+/* process ribbon */
+.process-ribbon{display:flex;border-radius:10px;overflow:hidden;margin:2rem 0;background:var(--bg3);border:1px solid var(--border2)}
+.proc-step{flex:1;min-width:78px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:.85rem .35rem;text-align:center;position:relative;border-right:1px solid var(--border2)}
+.proc-step:last-child{border-right:none}
+.proc-num{width:24px;height:24px;border-radius:50%;background:rgba(124,58,237,.3);display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:700;color:var(--purple-l);margin-bottom:.4rem;border:1px solid var(--border)}
+.proc-name{font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--white);line-height:1.2}
+.proc-sub{font-size:.58rem;color:var(--muted);margin-top:.14rem}
+/* phase badge */
+.phase-badge{display:inline-block;padding:.2rem .75rem;border-radius:50px;background:rgba(124,58,237,.18);color:var(--purple-l);font-size:.62rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:.4rem;border:1px solid var(--border)}
+/* comp cards */
+.comp-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.9rem;margin:1.2rem 0}
+.comp-card{background:var(--bg3);border:1px solid var(--border2);padding:1.2rem;border-radius:var(--r-sm)}
+.comp-card h3{font-size:.88rem;font-weight:700;color:var(--white);margin-bottom:.5rem}
+.comp-st{font-size:.6rem;text-transform:uppercase;letter-spacing:.12em;color:var(--purple-l);font-weight:700;margin:.5rem 0 .2rem}
+.comp-card ul{padding-left:1rem}
+.comp-card ul li{font-size:.76rem;color:var(--muted);line-height:1.55;margin-bottom:.13rem}
+/* insights */
+.insights-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(185px,1fr));gap:.85rem;margin:1.1rem 0}
+.insight-card{background:var(--bg3);border:1px solid var(--border2);padding:1.1rem;border-radius:var(--r-sm);border-top:2px solid var(--purple)}
+.insight-card h3{font-size:.85rem;font-weight:700;color:var(--white);margin-bottom:.3rem}
+.insight-card p{font-size:.78rem;color:var(--muted);line-height:1.6}
+/* stats */
+.cs-stats{display:flex;gap:1rem;flex-wrap:wrap;margin:2rem 0}
+.cs-stat{text-align:center;background:var(--bg3);border:1px solid var(--border2);padding:1.5rem 1.8rem;flex:1;min-width:130px;border-radius:var(--r-sm)}
+.cs-num{font-size:2.4rem;font-weight:900;line-height:1;letter-spacing:-.04em;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.cs-lbl{font-size:.7rem;color:var(--muted);margin-top:.3rem;text-transform:uppercase;letter-spacing:.1em;font-weight:500}
+/* before/after */
+.ba-wrap{display:grid;grid-template-columns:1fr 1fr;gap:1.1rem;margin:1.2rem 0}
+.ba-lbl{font-size:.65rem;text-transform:uppercase;letter-spacing:.14em;font-weight:700;margin-bottom:.5rem;padding:.18rem .55rem;display:inline-block;border-radius:50px}
+.ba-before{color:#f87171;background:rgba(248,113,113,.1);border:1px solid rgba(248,113,113,.2)}
+.ba-after{color:#4ade80;background:rgba(74,222,128,.08);border:1px solid rgba(74,222,128,.2)}
+.ba-box{background:var(--bg3);width:100%;height:155px;border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;font-size:.76rem;color:var(--muted);font-style:italic;text-align:center;padding:1rem;border:1px solid var(--border2)}
+/* pov list */
+.pov-list{margin:.9rem 0;display:flex;flex-direction:column;gap:.55rem}
+.pov-item{background:var(--bg3);border:1px solid var(--border2);padding:.85rem 1rem;display:flex;gap:.65rem;align-items:flex-start;border-radius:var(--r-sm)}
+.pov-num{background:var(--grad);color:#fff;width:21px;height:21px;min-width:21px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:700;margin-top:.1rem}
+.pov-text{font-size:.85rem;color:var(--muted);line-height:1.65}
+/* goals */
+.goals-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.85rem;margin:1.1rem 0}
+.goal-col{padding:1rem;border:1px solid var(--border2);border-radius:var(--r-sm);background:var(--bg3)}
+.goal-col h3{font-size:.74rem;text-transform:uppercase;letter-spacing:.1em;font-weight:700;margin-bottom:.6rem}
+.goal-col ul{padding-left:.9rem}
+.goal-col ul li{font-size:.77rem;color:var(--muted);line-height:1.55;margin-bottom:.24rem}
+.gc-biz h3{color:#4ade80}.gc-user h3{color:var(--purple-l)}.gc-tech h3{color:#60a5fa}
+/* case nav */
+.cs-nav{display:flex;justify-content:space-between;padding:2rem 5vw;border-top:1px solid var(--border2);margin-top:2rem;gap:1.5rem;flex-wrap:wrap;background:var(--bg2)}
+.cs-nav-dir{font-size:.63rem;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);font-weight:600;display:block;margin-bottom:.2rem}
+.cs-nav-title{font-size:.88rem;font-weight:700;color:var(--white);cursor:pointer;display:block;transition:color .2s}
+.cs-nav-title:hover{color:var(--purple-l)}
+
+/* ══════════════════════════════════════════════  RESPONSIVE  */
+@media(max-width:860px){
+  .hero-inner,.about-hero-grid{grid-template-columns:1fr}
+  .hero-photo-card{display:none}
+  .pcard,.pcard.rev{grid-template-columns:1fr;direction:ltr}
+  .pcard-body{padding:1.8rem 1.4rem}
+  .about-body{grid-template-columns:1fr;gap:2rem}
+  .ba-wrap,.goals-grid{grid-template-columns:1fr}
+  .stats-bar{grid-template-columns:repeat(2,1fr)}
+  .cs-nav{flex-direction:column}
+  .process-ribbon{flex-wrap:wrap}
+  .proc-step{min-width:30%;flex:0 0 33%}
+}
+</style>
+</head>
+<body>
+
+<!-- ══════ NAV ══════ -->
+<nav>
+  <span class="logo" onclick="window.showPage('home')">
+    Andrew <span style="background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">Zvoma</span>
+  </span>
+  <ul class="nav-links">
+    <li><a onclick="window.showPage('portfolio')" id="nav-portfolio">Projects</a></li>
+    <li><a onclick="window.showPage('about')" id="nav-about">About</a></li>
+    <li><a href="mailto:azvoma@gmail.com" class="nav-pill">Book a call →</a></li>
+  </ul>
+</nav>
+
+<!-- ══════════════════════════════════ HOME ══════════════════════════════════ -->
+<div class="page active" id="home">
+
+  <!-- HERO -->
+  <div class="hero-wrap">
+    <div class="hero-orb"></div>
+    <div class="hero-inner">
+      <div class="hero-text">
+        <div class="hero-badge-row fade-in">
+          <span class="badge">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            High Wycombe, England
+          </span>
+        </div>
+        <h1 class="hero-h1 fade-in">
+          WordPress &amp; <span class="grad-text">AI Developer</span><br>
+          <span class="dim">building smarter</span><br>digital products.
+        </h1>
+        <p class="hero-sub fade-in">I build high-performance WordPress sites and AI-powered tools that solve real business problems — clean code, measurable results.</p>
+        <div class="hero-btns fade-in">
+          <span class="btn-primary" onclick="window.showPage('portfolio')">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+            View my work
+          </span>
+          <a href="mailto:azvoma@gmail.com" class="btn-secondary">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            Get in touch
+          </a>
+        </div>
+        <div class="hero-chips fade-in">
+          <span class="chip">WordPress</span><span class="chip">WooCommerce</span><span class="chip">AI Integration</span>
+          <span class="chip">Python</span><span class="chip">OpenAI API</span><span class="chip">LangChain</span><span class="chip">Next.js</span>
+        </div>
+      </div>
+      <!-- Photo card -->
+      <div class="hero-photo-card fade-in">
+        <img src="andrew.jpg" alt="Andrew Zvoma"/>
+        <div class="hero-photo-name">Andrew Zvoma</div>
+        <div class="hero-photo-role">WordPress &amp; AI Developer</div>
+        <div class="avail-dot">Available for projects</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats-bar fade-in">
+    <div class="stat-item"><div class="stat-n" id="s1">0</div><div class="stat-l">Projects Delivered</div></div>
+    <div class="stat-item"><div class="stat-n" id="s2">0</div><div class="stat-l">Happy Clients</div></div>
+    <div class="stat-item"><div class="stat-n" id="s3">0</div><div class="stat-l">Years Experience</div></div>
+    <div class="stat-item"><div class="stat-n" id="s4">0</div><div class="stat-l">AI Tools Built</div></div>
+  </div>
+
+  <!-- PROJECT CARDS -->
+  <div class="sec-head fade-in">
+    <span class="s-label">Selected Work</span>
+    <h2>Projects &amp; <span class="grad-text">Case Studies</span></h2>
+  </div>
+
+  <div class="projects-wrap">
+    <div class="projects-list">
+
+      <div class="pcard fade-in">
+        <div class="pcard-visual"><div class="pcard-visual-inner pv-wp1">
+          <div class="pv-glow"></div>
+          <div class="pcard-icon-box">
+            <svg viewBox="0 0 24 24" fill="white"><path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm0 1.5c4.687 0 8.5 3.813 8.5 8.5 0 1.714-.51 3.31-1.385 4.645L13.9 8.5H16V7h-5.5v1.5h1.768l-2.293 6.879-2.346-7.057c.248-.014.498-.022.75-.022 1.06 0 2.084.145 3.057.414L11.1 7H9.5V5.5A8.48 8.48 0 0 1 12 3.5zm-8.5 8.5c0-1.518.4-2.943 1.1-4.172l3.029 8.3A8.504 8.504 0 0 1 3.5 12zm8.5 8.5a8.48 8.48 0 0 1-4.172-1.1l4.176-12.147L16.17 19.4A8.48 8.48 0 0 1 12 20.5zm5.37-1.328-3.04-8.345 1.94-5.644A8.502 8.502 0 0 1 17.37 19.172z"/></svg>
+          </div>
+          <span class="pcard-vis-label">WooCommerce Store</span>
+        </div></div>
+        <div class="pcard-body">
+          <p class="pcard-type">WordPress · WooCommerce</p>
+          <h3 class="pcard-title">E-Commerce Website for a Local Retail Brand</h3>
+          <p class="pcard-desc">Full WooCommerce store with custom theme, product filtering, Stripe integration, and mobile-first layout. Site speed improved by 60% through caching and image optimisation.</p>
+          <div class="pills"><span class="pill">WordPress</span><span class="pill">WooCommerce</span><span class="pill">PHP</span><span class="pill">CSS</span><span class="pill">Stripe</span></div>
+          <span class="arrow-link" onclick="window.showCase('woo')">View Case Study</span>
+        </div>
+      </div>
+
+      <div class="pcard rev fade-in">
+        <div class="pcard-visual"><div class="pcard-visual-inner pv-ai1">
+          <div class="pv-glow"></div>
+          <div class="pcard-icon-box">
+            <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="6" height="6" rx="1"/><path d="M15 3v2M9 3v2M3 9h2M3 15h2M21 9h-2M21 15h-2M9 21v-2M15 21v-2"/><rect x="3" y="3" width="18" height="18" rx="3"/></svg>
+          </div>
+          <span class="pcard-vis-label">AI Automation</span>
+        </div></div>
+        <div class="pcard-body">
+          <p class="pcard-type">AI · Automation</p>
+          <h3 class="pcard-title">AI-Powered Content Assistant for WordPress Blogs</h3>
+          <p class="pcard-desc">Custom WordPress plugin integrating OpenAI to generate SEO-ready drafts, meta descriptions, and image alt text — cutting content creation time by over 70%.</p>
+          <div class="pills"><span class="pill">OpenAI API</span><span class="pill">WordPress Plugin</span><span class="pill">PHP</span><span class="pill">JavaScript</span></div>
+          <span class="arrow-link" onclick="window.showCase('ai-content')">View Case Study</span>
+        </div>
+      </div>
+
+      <div class="pcard fade-in">
+        <div class="pcard-visual"><div class="pcard-visual-inner pv-wp2">
+          <div class="pv-glow"></div>
+          <div class="pcard-icon-box">
+            <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+          </div>
+          <span class="pcard-vis-label">LMS Platform</span>
+        </div></div>
+        <div class="pcard-body">
+          <p class="pcard-type">WordPress · LMS</p>
+          <h3 class="pcard-title">Membership &amp; Learning Platform for Online Courses</h3>
+          <p class="pcard-desc">WordPress multisite with LearnDash, custom membership tiers, automated email onboarding, and a branded student dashboard. Supporting 500+ active learners.</p>
+          <div class="pills"><span class="pill">WordPress</span><span class="pill">LearnDash</span><span class="pill">MemberPress</span><span class="pill">ACF</span></div>
+          <span class="arrow-link" onclick="window.showCase('lms')">View Case Study</span>
+        </div>
+      </div>
+
+      <div class="pcard rev fade-in">
+        <div class="pcard-visual"><div class="pcard-visual-inner pv-ai2">
+          <div class="pv-glow"></div>
+          <div class="pcard-icon-box">
+            <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          </div>
+          <span class="pcard-vis-label">AI Chatbot</span>
+        </div></div>
+        <div class="pcard-body">
+          <p class="pcard-type">AI · Chatbot</p>
+          <h3 class="pcard-title">AI Chatbot Integration for Customer Support</h3>
+          <p class="pcard-desc">RAG-based chatbot trained on product documentation, embedded into WordPress. Handles 80% of tier-1 support queries automatically, 24/7.</p>
+          <div class="pills"><span class="pill">LangChain</span><span class="pill">OpenAI</span><span class="pill">Python</span><span class="pill">WordPress REST API</span></div>
+          <span class="arrow-link" onclick="window.showCase('chatbot')">View Case Study</span>
+        </div>
+      </div>
+
+      <div class="pcard fade-in">
+        <div class="pcard-visual"><div class="pcard-visual-inner pv-wp3">
+          <div class="pv-glow"></div>
+          <div class="pcard-icon-box">
+            <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          </div>
+          <span class="pcard-vis-label">Headless WordPress</span>
+        </div></div>
+        <div class="pcard-body">
+          <p class="pcard-type">WordPress · Headless</p>
+          <h3 class="pcard-title">Headless WordPress Site with Next.js Frontend</h3>
+          <p class="pcard-desc">WordPress as a headless CMS with a blazing-fast Next.js frontend deployed on Vercel. Sub-1-second loads and a 98 Lighthouse score.</p>
+          <div class="pills"><span class="pill">WordPress REST API</span><span class="pill">Next.js</span><span class="pill">GraphQL</span><span class="pill">Vercel</span></div>
+          <span class="arrow-link" onclick="window.showCase('headless')">View Case Study</span>
+        </div>
+      </div>
+
+      <div class="pcard rev fade-in">
+        <div class="pcard-visual"><div class="pcard-visual-inner pv-ai3">
+          <div class="pv-glow"></div>
+          <div class="pcard-icon-box">
+            <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+          </div>
+          <span class="pcard-vis-label">Image Generation</span>
+        </div></div>
+        <div class="pcard-body">
+          <p class="pcard-type">AI · Image Generation</p>
+          <h3 class="pcard-title">Automated AI Product Image Generator</h3>
+          <p class="pcard-desc">Stable Diffusion + ControlNet pipeline generating lifestyle product images from plain photos. Saved a client £4,000+ per product line in photography costs.</p>
+          <div class="pills"><span class="pill">Stable Diffusion</span><span class="pill">ControlNet</span><span class="pill">Python</span><span class="pill">ComfyUI</span></div>
+          <span class="arrow-link" onclick="window.showCase('imggen')">View Case Study</span>
+        </div>
+      </div>
+
+    </div>
+  </div><!-- /projects-wrap -->
+
+  <!-- CONTACT STRIP -->
+  <div class="contact-strip fade-in">
+    <h2>Ready to build<br><span class="grad-text">something great?</span></h2>
+    <p>Open to freelance projects, long-term partnerships, and exciting new challenges.</p>
+    <a href="mailto:azvoma@gmail.com" class="btn-primary" style="margin:0 auto">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      Get in touch
+    </a>
+  </div>
+
+  <footer><span>© 2025 Andrew Zvoma</span><span>Get In Touch · <a href="mailto:azvoma@gmail.com">azvoma@gmail.com</a></span></footer>
+</div><!-- /home -->
+
+<!-- ══════════════════════════════════ ABOUT ══════════════════════════════════ -->
+<div class="page" id="about">
+  <div class="about-hero">
+    <div class="about-hero-grid">
+      <div class="about-photo-wrap fade-in">
+        <img src="andrew.jpg" alt="Andrew Zvoma" class="about-photo"/>
+        <div class="about-badge">
+          <span style="color:#4ade80">●</span> Available for projects
+        </div>
+      </div>
+      <div>
+        <span class="s-label fade-in">About Me</span>
+        <h1 class="fade-in" style="font-size:clamp(1.8rem,3.5vw,3rem);font-weight:900;letter-spacing:-.04em;color:var(--white);line-height:1.1;margin-bottom:1.1rem">WordPress &amp; AI Developer<br>based in <span class="grad-text">High Wycombe</span>, England.</h1>
+        <p class="fade-in" style="font-size:.93rem;color:var(--muted);line-height:1.82;max-width:540px">I started out building WordPress sites for small businesses and quickly became obsessed with what happens when you layer AI on top of them. I love the intersection of practical web development and emerging technology — finding ways to make websites smarter, faster, and more useful for real people. When I'm not in my editor, I'm probably exploring new tools, tinkering with automations, or finding new corners of the internet to be curious about.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="about-body">
+    <!-- Left col -->
+    <div>
+      <h2 class="about-sec-title fade-in">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        Skills
+      </h2>
+      <div class="fade-in">
+        <span class="skill-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>WordPress Dev</span>
+        <span class="skill-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="6" height="6" rx="1"/><path d="M15 3v2M9 3v2M3 9h2M3 15h2M21 9h-2M21 15h-2M9 21v-2M15 21v-2"/><rect x="3" y="3" width="18" height="18" rx="3"/></svg>AI &amp; LLM Integration</span>
+        <span class="skill-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>WooCommerce</span>
+        <span class="skill-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Prompt Engineering</span>
+        <span class="skill-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>PHP &amp; JavaScript</span>
+        <span class="skill-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>Python</span>
+        <span class="skill-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>REST API &amp; GraphQL</span>
+        <span class="skill-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>SEO &amp; Performance</span>
+        <span class="skill-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>Automation Workflows</span>
+        <span class="skill-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>Custom Theme Dev</span>
+      </div>
+
+      <h2 class="about-sec-title fade-in" style="margin-top:2.5rem">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        Tools
+      </h2>
+      <div class="fade-in">
+        <span class="skill-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>VS Code</span>
+        <span class="skill-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>Figma</span>
+        <span class="skill-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="6" height="6" rx="1"/><path d="M15 3v2M9 3v2M3 9h2M3 15h2M21 9h-2M21 15h-2M9 21v-2M15 21v-2"/><rect x="3" y="3" width="18" height="18" rx="3"/></svg>OpenAI / Claude API</span>
+        <span class="skill-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><path d="M13 6h3a2 2 0 0 1 2 2v7M11 18H8a2 2 0 0 1-2-2V9"/></svg>LangChain</span>
+        <span class="skill-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>GitHub</span>
+        <span class="skill-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>Vercel / Netlify</span>
+        <span class="skill-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>ComfyUI / Stable Diffusion</span>
+      </div>
+    </div>
+    <!-- Right col -->
+    <div>
+      <h2 class="about-sec-title fade-in">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+        Education &amp; Courses
+      </h2>
+      <div class="fade-in">
+        <div class="edu-row"><div class="edu-name">WordPress Development</div><div class="edu-org">Add provider here</div><span class="edu-year">Add year</span></div>
+        <div class="edu-row"><div class="edu-name">AI &amp; Machine Learning</div><div class="edu-org">Add provider here</div><span class="edu-year">Add year</span></div>
+        <div class="edu-row"><div class="edu-name">Full Stack Web Development</div><div class="edu-org">Add provider here</div><span class="edu-year">Add year</span></div>
+        <div class="edu-row"><div class="edu-name">Your Degree / Qualification</div><div class="edu-org">Add institution here</div><span class="edu-year">Add year</span></div>
+      </div>
+      <div style="margin-top:2rem" class="fade-in">
+        <a href="mailto:azvoma@gmail.com" class="btn-primary">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Request CV
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="git-section fade-in">
+    <span class="s-label">Let's talk</span>
+    <h2>Get <span class="grad-text">In Touch</span></h2>
+    <p>Open to freelance work, long-term partnerships, and exciting new challenges.</p>
+    <a href="mailto:azvoma@gmail.com" class="btn-primary" style="margin:0 auto">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      azvoma@gmail.com
+    </a>
+  </div>
+  <footer><span>© 2025 Andrew Zvoma</span><span><a href="mailto:azvoma@gmail.com">azvoma@gmail.com</a></span></footer>
+</div>
+
+<!-- ══════════════════════════════════ PORTFOLIO ══════════════════════════════════ -->
+<div class="page" id="portfolio">
+  <div class="port-hero fade-in">
+    <span class="s-label" style="color:var(--purple-l)">Selected Work</span>
+    <h1>All Projects &amp; <span class="grad-text">Case Studies</span></h1>
+    <p>WordPress builds, AI integrations, and automation pipelines — each solving a real client problem.</p>
+  </div>
+  <div class="filter-bar fade-in">
+    <button class="ftab active" onclick="window.filterProjects('all',this)">All Work</button>
+    <button class="ftab" onclick="window.filterProjects('wordpress',this)">WordPress</button>
+    <button class="ftab" onclick="window.filterProjects('ai',this)">AI Projects</button>
+  </div>
+  <div class="projects-list" id="portfolio-list" style="margin:0">
+    <div class="pcard fade-in" data-cat="wordpress"><div class="pcard-visual"><div class="pcard-visual-inner pv-wp1"><div class="pv-glow"></div><div class="pcard-icon-box"><svg viewBox="0 0 24 24" fill="white"><path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm0 1.5c4.687 0 8.5 3.813 8.5 8.5 0 1.714-.51 3.31-1.385 4.645L13.9 8.5H16V7h-5.5v1.5h1.768l-2.293 6.879-2.346-7.057c.248-.014.498-.022.75-.022 1.06 0 2.084.145 3.057.414L11.1 7H9.5V5.5A8.48 8.48 0 0 1 12 3.5zm-8.5 8.5c0-1.518.4-2.943 1.1-4.172l3.029 8.3A8.504 8.504 0 0 1 3.5 12zm8.5 8.5a8.48 8.48 0 0 1-4.172-1.1l4.176-12.147L16.17 19.4A8.48 8.48 0 0 1 12 20.5zm5.37-1.328-3.04-8.345 1.94-5.644A8.502 8.502 0 0 1 17.37 19.172z"/></svg></div><span class="pcard-vis-label">WooCommerce Store</span></div></div><div class="pcard-body"><p class="pcard-type">WordPress · WooCommerce</p><h3 class="pcard-title">E-Commerce Website for a Local Retail Brand</h3><p class="pcard-desc">Full WooCommerce store with custom theme, Stripe integration, and mobile-first design. 60% faster after optimisation.</p><div class="pills"><span class="pill">WordPress</span><span class="pill">WooCommerce</span><span class="pill">PHP</span><span class="pill">Stripe</span></div><span class="arrow-link" onclick="window.showCase('woo')">View Case Study</span></div></div>
+    <div class="pcard rev fade-in" data-cat="ai"><div class="pcard-visual"><div class="pcard-visual-inner pv-ai1"><div class="pv-glow"></div><div class="pcard-icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="6" height="6" rx="1"/><path d="M15 3v2M9 3v2M3 9h2M3 15h2M21 9h-2M21 15h-2M9 21v-2M15 21v-2"/><rect x="3" y="3" width="18" height="18" rx="3"/></svg></div><span class="pcard-vis-label">AI Automation</span></div></div><div class="pcard-body"><p class="pcard-type">AI · Automation</p><h3 class="pcard-title">AI-Powered Content Assistant for WordPress Blogs</h3><p class="pcard-desc">WordPress plugin using OpenAI — saves 70%+ of content creation time.</p><div class="pills"><span class="pill">OpenAI API</span><span class="pill">WordPress Plugin</span><span class="pill">PHP</span></div><span class="arrow-link" onclick="window.showCase('ai-content')">View Case Study</span></div></div>
+    <div class="pcard fade-in" data-cat="wordpress"><div class="pcard-visual"><div class="pcard-visual-inner pv-wp2"><div class="pv-glow"></div><div class="pcard-icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></div><span class="pcard-vis-label">LMS Platform</span></div></div><div class="pcard-body"><p class="pcard-type">WordPress · LMS</p><h3 class="pcard-title">Membership &amp; Learning Platform for Online Courses</h3><p class="pcard-desc">WordPress multisite + LearnDash with custom tiers. 500+ learners.</p><div class="pills"><span class="pill">WordPress</span><span class="pill">LearnDash</span><span class="pill">MemberPress</span></div><span class="arrow-link" onclick="window.showCase('lms')">View Case Study</span></div></div>
+    <div class="pcard rev fade-in" data-cat="ai"><div class="pcard-visual"><div class="pcard-visual-inner pv-ai2"><div class="pv-glow"></div><div class="pcard-icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div><span class="pcard-vis-label">AI Chatbot</span></div></div><div class="pcard-body"><p class="pcard-type">AI · Chatbot</p><h3 class="pcard-title">AI Chatbot Integration for Customer Support</h3><p class="pcard-desc">RAG-based chatbot handling 80% of tier-1 support queries 24/7.</p><div class="pills"><span class="pill">LangChain</span><span class="pill">OpenAI</span><span class="pill">Python</span></div><span class="arrow-link" onclick="window.showCase('chatbot')">View Case Study</span></div></div>
+    <div class="pcard fade-in" data-cat="wordpress"><div class="pcard-visual"><div class="pcard-visual-inner pv-wp3"><div class="pv-glow"></div><div class="pcard-icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div><span class="pcard-vis-label">Headless WordPress</span></div></div><div class="pcard-body"><p class="pcard-type">WordPress · Headless</p><h3 class="pcard-title">Headless WordPress Site with Next.js Frontend</h3><p class="pcard-desc">Decoupled WordPress + Next.js. Sub-1s loads, 98 Lighthouse score.</p><div class="pills"><span class="pill">WordPress REST API</span><span class="pill">Next.js</span><span class="pill">GraphQL</span></div><span class="arrow-link" onclick="window.showCase('headless')">View Case Study</span></div></div>
+    <div class="pcard rev fade-in" data-cat="ai"><div class="pcard-visual"><div class="pcard-visual-inner pv-ai3"><div class="pv-glow"></div><div class="pcard-icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div><span class="pcard-vis-label">Image Generation</span></div></div><div class="pcard-body"><p class="pcard-type">AI · Image Generation</p><h3 class="pcard-title">Automated AI Product Image Generator</h3><p class="pcard-desc">Stable Diffusion + ControlNet pipeline. Saved £4,000+ per product line.</p><div class="pills"><span class="pill">Stable Diffusion</span><span class="pill">ControlNet</span><span class="pill">Python</span></div><span class="arrow-link" onclick="window.showCase('imggen')">View Case Study</span></div></div>
+  </div>
+  <footer><span>© 2025 Andrew Zvoma</span><span><a href="mailto:azvoma@gmail.com">azvoma@gmail.com</a></span></footer>
+</div>
+
+<!-- ══════════════════════════════════ CASE ══════════════════════════════════ -->
+<div class="page" id="case">
+  <div id="case-content"></div>
+  <footer><span>© 2025 Andrew Zvoma</span><span><a href="mailto:azvoma@gmail.com">azvoma@gmail.com</a></span></footer>
+</div>
+
+<script>
+/* ── ROUTING ── expose on window so inline onclick attrs always resolve ── */
+window.showPage = function showPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.nav-links a').forEach(a=>a.classList.remove('active'));
+  if(id==='about') document.getElementById('nav-about').classList.add('active');
+  if(id==='portfolio') document.getElementById('nav-portfolio').classList.add('active');
+  window.scrollTo(0,0); setTimeout(triggerFades,60);
+}
+window.showCase = function showCase(id){
+  document.getElementById('case-content').innerHTML=buildCase(id);
+  showPage('case'); setTimeout(initCounters,300);
+}
+window.filterProjects = function filterProjects(cat,el){
+  document.querySelectorAll('.ftab').forEach(t=>t.classList.remove('active')); el.classList.add('active');
+  document.querySelectorAll('#portfolio-list .pcard').forEach(c=>{c.style.display=(cat==='all'||c.dataset.cat===cat)?'grid':'none'});
+}
+
+/* ── FADES ── */
+function triggerFades(){
+  const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible')})},{threshold:.07});
+  document.querySelectorAll('.page.active .fade-in:not(.visible)').forEach(el=>obs.observe(el));
+}
+window.addEventListener('load',()=>{triggerFades();animateHomeStats()});
+
+/* ── HOME STATS ── */
+function animateHomeStats(){
+  [{id:'s1',v:30,s:'+'},{id:'s2',v:25,s:'+'},{id:'s3',v:5,s:'+'},{id:'s4',v:12,s:'+'}].forEach(({id,v,s})=>{
+    const el=document.getElementById(id); if(!el) return;
+    let t=null; const step=ts=>{if(!t)t=ts; const p=Math.min((ts-t)/900,1); el.textContent=Math.floor(p*v)+(p>=1?s:''); if(p<1)requestAnimationFrame(step)}; requestAnimationFrame(step);
+  });
+}
+
+/* ── CASE COUNTERS ── */
+function initCounters(){
+  document.querySelectorAll('.page.active .cs-num[data-t]').forEach(el=>{
+    if(el._done)return; el._done=true;
+    const target=+el.dataset.t, sfx=el.dataset.s||'';
+    let t=null; const step=ts=>{if(!t)t=ts; const p=Math.min((ts-t)/1000,1); el.textContent=Math.floor(p*target)+(p>=1?sfx:''); if(p<1)requestAnimationFrame(step)}; requestAnimationFrame(step);
+  });
+}
+
+/* ── CASE DATA ── */
+const CASES={
+  woo:         {type:'WordPress · WooCommerce',title:'E-Commerce Website for a Local Retail Brand',       vis:'pv-wp1',iconFill:true,  icon:'<path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm0 1.5c4.687 0 8.5 3.813 8.5 8.5 0 1.714-.51 3.31-1.385 4.645L13.9 8.5H16V7h-5.5v1.5h1.768l-2.293 6.879-2.346-7.057c.248-.014.498-.022.75-.022 1.06 0 2.084.145 3.057.414L11.1 7H9.5V5.5A8.48 8.48 0 0 1 12 3.5zm-8.5 8.5c0-1.518.4-2.943 1.1-4.172l3.029 8.3A8.504 8.504 0 0 1 3.5 12zm8.5 8.5a8.48 8.48 0 0 1-4.172-1.1l4.176-12.147L16.17 19.4A8.48 8.48 0 0 1 12 20.5zm5.37-1.328-3.04-8.345 1.94-5.644A8.502 8.502 0 0 1 17.37 19.172z"/>',                                                                                                                                            tf:'6 Weeks',role:'WordPress Developer, UX, SEO',tools:'WordPress, WooCommerce, PHP, CSS, Stripe',prev:'imggen',next:'ai-content'},
+  'ai-content':{type:'AI · Automation',         title:'AI-Powered Content Assistant for WordPress Blogs', vis:'pv-ai1',iconFill:false, icon:'<rect x="9" y="9" width="6" height="6" rx="1"/><path d="M15 3v2M9 3v2M3 9h2M3 15h2M21 9h-2M21 15h-2M9 21v-2M15 21v-2"/><rect x="3" y="3" width="18" height="18" rx="3"/>',                                                                                                                                                                                                                                          tf:'4 Weeks',role:'AI Developer, WordPress Plugin Dev',tools:'PHP, JavaScript, OpenAI API, WordPress',prev:'woo',next:'lms'},
+  lms:         {type:'WordPress · LMS',          title:'Membership & Learning Platform for Online Courses',vis:'pv-wp2',iconFill:false, icon:'<path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/>',                                                                                                                                                                                                                                                                                                                                    tf:'8 Weeks',role:'WordPress Developer, Systems Architecture',tools:'WordPress, LearnDash, MemberPress, ACF',prev:'ai-content',next:'chatbot'},
+  chatbot:     {type:'AI · Chatbot',             title:'AI Chatbot Integration for Customer Support',     vis:'pv-ai2',iconFill:false, icon:'<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>',                                                                                                                                                                                                                                                                                                                                           tf:'5 Weeks',role:'AI Developer, Backend Integration',tools:'Python, LangChain, OpenAI, Pinecone, WP REST API',prev:'lms',next:'headless'},
+  headless:    {type:'WordPress · Headless',     title:'Headless WordPress Site with Next.js Frontend',   vis:'pv-wp3',iconFill:false, icon:'<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>',                                                                                                                                                                                                                                                                                                                                                          tf:'7 Weeks',role:'Full Stack Developer, Performance Engineer',tools:'WordPress, GraphQL, Next.js, Vercel, Tailwind',prev:'chatbot',next:'imggen'},
+  imggen:      {type:'AI · Image Generation',    title:'Automated AI Product Image Generator',             vis:'pv-ai3',iconFill:false, icon:'<rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>',                                                                                                                                                                                                                                                                                         tf:'3 Weeks',role:'AI Engineer, Python Developer',tools:'Python, Stable Diffusion, ControlNet, ComfyUI',prev:'headless',next:'woo'}
+};
+
+function buildCase(id){
+  const c=CASES[id]; if(!c) return '<p style="padding:4rem">Coming soon.</p>';
+  const p=CASES[c.prev], n=CASES[c.next];
+  const icoAttr=c.iconFill?'viewBox="0 0 24 24" fill="white"':'viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"';
+  return`
+<div class="cs-hero fade-in">
+  <p class="cs-type">${c.type}</p>
+  <h1 class="cs-title">${c.title}</h1>
+</div>
+<div class="cs-banner ${c.vis} fade-in">
+  <div class="cs-banner-glow"></div>
+  <div class="cs-banner-icon"><svg ${icoAttr} width="48" height="48">${c.icon}</svg></div>
+  <span class="cs-banner-lbl">${c.type}</span>
+</div>
+<div class="cs-meta-bar fade-in">
+  <div class="cs-meta-item"><div class="cs-meta-label">Timeframe</div><div class="cs-meta-val">${c.tf}</div></div>
+  <div class="cs-meta-item"><div class="cs-meta-label">My Role</div><div class="cs-meta-val">${c.role}</div></div>
+  <div class="cs-meta-item"><div class="cs-meta-label">Tools</div><div class="cs-meta-val">${c.tools}</div></div>
+</div>
+
+<div class="cs-body">
+  <h2>Project Overview</h2>
+  <p>This project tackled a real client challenge — a problem costing them time, money, or competitive advantage. Replace this with your real context: who the client was, their situation before you started, and what made the project worth taking on.</p>
+  <p>Describe the background, industry, client size, how you were engaged, and any constraints that shaped the approach.</p>
+
+  <span class="phase-badge">The Challenge</span>
+  <h2>Replace with your real challenge statement</h2>
+  <p>Describe the specific problem this project solved — what was failing, the cost of inaction, and what success looked like for both you and the client.</p>
+
+  <h2>My Process</h2>
+  <div class="process-ribbon">
+    <div class="proc-step"><div class="proc-num">1</div><div class="proc-name">Discover</div><div class="proc-sub">Research</div></div>
+    <div class="proc-step"><div class="proc-num">2</div><div class="proc-name">Define</div><div class="proc-sub">Insights</div></div>
+    <div class="proc-step"><div class="proc-num">3</div><div class="proc-name">Ideate</div><div class="proc-sub">Solutions</div></div>
+    <div class="proc-step"><div class="proc-num">4</div><div class="proc-name">Build</div><div class="proc-sub">Development</div></div>
+    <div class="proc-step"><div class="proc-num">5</div><div class="proc-name">Test</div><div class="proc-sub">Feedback</div></div>
+    <div class="proc-step"><div class="proc-num">6</div><div class="proc-name">Launch</div><div class="proc-sub">Deliver</div></div>
+  </div>
+
+  <span class="phase-badge">Discover</span>
+  <h2>Research</h2>
+  <span class="s-label">Competitive Analysis</span>
+  <p>I examined the competitive landscape — understanding what existing solutions offered and where the gaps were, to inform the project's strategic direction from the start.</p>
+  <div class="comp-grid">
+    <div class="comp-card"><h3>Competitor A</h3><p class="comp-st">Strengths</p><ul><li>Established market presence</li><li>Wide feature set</li><li>Strong documentation</li></ul><p class="comp-st">Weaknesses</p><ul><li>Steep learning curve</li><li>Expensive pricing</li><li>Poor mobile support</li></ul></div>
+    <div class="comp-card"><h3>Competitor B</h3><p class="comp-st">Strengths</p><ul><li>Easy onboarding</li><li>Modern interface</li><li>Affordable pricing</li></ul><p class="comp-st">Weaknesses</p><ul><li>Limited customisation</li><li>No API access</li><li>Weak integrations</li></ul></div>
+    <div class="comp-card"><h3>Competitor C</h3><p class="comp-st">Strengths</p><ul><li>Strong integrations</li><li>Good analytics</li><li>Active community</li></ul><p class="comp-st">Weaknesses</p><ul><li>Cluttered UI</li><li>Slow support</li><li>Feature bloat</li></ul></div>
+  </div>
+
+  <span class="phase-badge">Interviews</span>
+  <p>I spoke with 5 people from the target audience to understand their goals, pain points, and workarounds. Consistent themes emerged across all conversations.</p>
+  <div class="insights-grid">
+    <div class="insight-card"><h3>Primary Pain Point</h3><p>Users found the existing process time-consuming and error-prone — too many manual steps to accomplish a simple goal.</p></div>
+    <div class="insight-card"><h3>Expectation Gap</h3><p>A clear gap existed between what tools offered and what users actually needed in their day-to-day workflow.</p></div>
+    <div class="insight-card"><h3>Clear Opportunity</h3><p>A focused, well-designed solution could dramatically reduce friction and build real user confidence and loyalty.</p></div>
+  </div>
+
+  <span class="phase-badge">Define</span>
+  <h2>Points of View</h2>
+  <div class="pov-list">
+    <div class="pov-item"><div class="pov-num">1</div><div class="pov-text">Users need a streamlined solution that validates their effort, supports their goals, and removes the complexity holding them back.</div></div>
+    <div class="pov-item"><div class="pov-num">2</div><div class="pov-text">Busy professionals need a time-efficient approach that eliminates cognitive load so they can focus on higher-value work.</div></div>
+    <div class="pov-item"><div class="pov-num">3</div><div class="pov-text">Non-technical users need guided, accessible tools that build their confidence and give them genuine autonomy.</div></div>
+  </div>
+
+  <h2>How Might We?</h2>
+  <div class="pov-list">
+    <div class="pov-item"><div class="pov-num">?</div><div class="pov-text">How might we design a solution that lets users achieve their goal quickly and confidently, without deep technical knowledge?</div></div>
+    <div class="pov-item"><div class="pov-num">?</div><div class="pov-text">How might we build something that scales with the client's needs and keeps delivering value as their business grows?</div></div>
+  </div>
+
+  <span class="phase-badge">Ideate</span>
+  <h2>Project Goals</h2>
+  <div class="goals-grid">
+    <div class="goal-col gc-biz"><h3>🏢 Business</h3><ul><li>Increase conversions</li><li>Reduce support overhead</li><li>Scalable architecture</li><li>Client self-sufficiency</li></ul></div>
+    <div class="goal-col gc-user"><h3>👤 User</h3><ul><li>Complete tasks quickly</li><li>Intuitive interface</li><li>Reliable performance</li><li>Clear feedback</li></ul></div>
+    <div class="goal-col gc-tech"><h3>⚙️ Technical</h3><ul><li>Maintainable codebase</li><li>Secure implementation</li><li>Performance budget</li><li>API-ready structure</li></ul></div>
+  </div>
+
+  <span class="phase-badge">Build</span>
+  <h2>Development &amp; Implementation</h2>
+  <p>With the problem defined and goals set, I moved into the build phase — making key architecture decisions, iterating rapidly, and staying aligned with the client throughout.</p>
+  <ul>
+    <li>Describe your first major architectural or technical decision</li>
+    <li>Explain any non-obvious challenges and how you solved them</li>
+    <li>Note performance, security, or accessibility decisions made</li>
+    <li>Describe how the handover was structured for client independence</li>
+  </ul>
+
+  <span class="phase-badge">Test</span>
+  <h2>Results</h2>
+  <div class="cs-stats">
+    <div class="cs-stat"><div class="cs-num" data-t="100" data-s="%">0</div><div class="cs-lbl">Task Completion</div></div>
+    <div class="cs-stat"><div class="cs-num" data-t="5">0</div><div class="cs-lbl">Users Tested</div></div>
+    <div class="cs-stat"><div class="cs-num" data-t="98">0</div><div class="cs-lbl">Lighthouse Score</div></div>
+  </div>
+
+  <h3>Client &amp; User Feedback</h3>
+  <blockquote>"The solution is intuitive — I completed everything without any guidance at all."</blockquote>
+  <blockquote>"A very smooth and professional experience. The results were immediately impressive."</blockquote>
+  <blockquote>"Setup was straightforward and the performance improvement was immediately noticeable."</blockquote>
+
+  <h2>Iterations</h2>
+  <p>Based on feedback collected during testing, the following improvements were designed and implemented:</p>
+  <div class="ba-wrap">
+    <div><span class="ba-lbl ba-before">Before</span><div class="ba-box">Initial version — describe the original approach and what users found unclear or frustrating about it.</div></div>
+    <div><span class="ba-lbl ba-after">After</span><div class="ba-box">Improved version — describe what changed, why, and the measurable impact on the overall experience.</div></div>
+  </div>
+
+  <span class="phase-badge">Closing</span>
+  <h2>Future Impact</h2>
+  <div class="pov-list">
+    <div class="pov-item"><div class="pov-num">1</div><div class="pov-text"><strong>Enhanced Personalisation:</strong> As usage data grows, the solution can become smarter — automating decisions and offering more tailored recommendations.</div></div>
+    <div class="pov-item"><div class="pov-num">2</div><div class="pov-text"><strong>Third-Party Integrations:</strong> Connecting with CRMs, analytics, and email platforms in the client's stack would multiply the value delivered.</div></div>
+    <div class="pov-item"><div class="pov-num">3</div><div class="pov-text"><strong>Expanded Scope:</strong> Future iterations could address adjac    <div class="pov-item"><div class="pov-num">3</div><div class="pov-text"><strong>Expanded Scope:</strong> Future iterations could address adjacent pain points discovered during research, growing the solution into a fuller platform.</div></div>
+  </div>
+
+  <div style="margin-top:2.5rem;display:flex;gap:.9rem;flex-wrap:wrap">
+    <span class="btn-primary">View Live Project</span>
+    <span class="btn-secondary" onclick="window.showPage('portfolio')">← Back to Projects</span>
+  </div>
+</div>
+
+<div class="cs-nav fade-in">
+  <div>
+    <span class="cs-nav-dir">← Previous</span>
+    <span class="cs-nav-title" onclick="window.showCase('${c.prev}')">${p.title}</span>
+  </div>
+  <div style="text-align:right">
+    <span class="cs-nav-dir">Next →</span>
+    <span class="cs-nav-title" onclick="window.showCase('${c.next}')">${n.title}</span>
+  </div>
+</div>`;
+}
+
+new MutationObserver(()=>{
+  setTimeout(triggerFades,60);
+  setTimeout(initCounters,300);
+}).observe(document.getElementById('case-content'),{childList:true});
+</script>
+</body>
+</html>
