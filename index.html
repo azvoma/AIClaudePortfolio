@@ -46,7 +46,7 @@ nav{
   border-bottom:1px solid var(--border2);
 }
 .logo{
-  font-size:1rem;font-weight:800;letter-spacing:-.02em;
+  font-size:1.25rem;font-weight:800;letter-spacing:-.02em;
   color:var(--white);cursor:pointer;text-decoration:none;display:flex;align-items:center;gap:.55rem;
 }
 
@@ -59,14 +59,15 @@ nav{
 .nav-pill{
   display:inline-flex;align-items:center;gap:.4rem;
   padding:.55rem 1.3rem;border-radius:50px;
-  background:var(--grad);color:#fff;
+  background:linear-gradient(135deg,#7c3aed 0%,#a855f7 60%,#c084fc 100%);
+  color:#fff;
   font-size:.82rem;font-weight:600;cursor:pointer;
   border:none;text-decoration:none;
-  box-shadow:0 0 22px rgba(124,58,237,.55),0 2px 12px rgba(124,58,237,.35);
-  transition:opacity .2s,transform .2s,box-shadow .2s;
+  box-shadow:0 0 20px rgba(124,58,237,.65),0 2px 12px rgba(124,58,237,.45);
+  transition:transform .2s,box-shadow .2s;
   letter-spacing:.01em;
 }
-.nav-pill:hover{opacity:.88;transform:translateY(-2px);box-shadow:0 0 32px rgba(124,58,237,.7),0 4px 20px rgba(124,58,237,.45)}
+.nav-pill:hover{transform:translateY(-2px);box-shadow:0 0 30px rgba(124,58,237,.85),0 4px 18px rgba(124,58,237,.6)}
 
 /* ══════════════════════════════════════════════  PAGE SYSTEM  */
 .page{display:none;padding-top:66px;min-height:100vh}
@@ -492,13 +493,13 @@ footer a:hover{color:var(--white)}
 
 <!-- ══════ NAV ══════ -->
 <nav>
-  <span class="logo" onclick="window.showPage('home')">
+  <span class="logo" onclick="window.showPage('home')" style="cursor:pointer">
     Andrew <span style="background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">Zvoma</span>
   </span>
   <ul class="nav-links">
-    <li><a onclick="window.showPage('portfolio')" id="nav-portfolio">Projects</a></li>
-    <li><a onclick="window.showPage('about')" id="nav-about">About</a></li>
-    <li><a href="/cdn-cgi/l/email-protection#b4d5cec2dbd9d5f4d3d9d5ddd89ad7dbd9" class="nav-pill">Book a call →</a></li>
+    <li><a href="javascript:void(0)" onclick="window.showPage('portfolio')" id="nav-portfolio">Projects</a></li>
+    <li><a href="javascript:void(0)" onclick="window.showPage('about')" id="nav-about">About</a></li>
+    <li><a href="mailto:azvoma@gmail.com" class="nav-pill">Book a call →</a></li>
   </ul>
 </nav>
 
@@ -510,12 +511,7 @@ footer a:hover{color:var(--white)}
     <div class="hero-orb"></div>
     <div class="hero-inner">
       <div class="hero-text">
-        <div class="hero-badge-row fade-in">
-          <span class="badge">
-            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-            High Wycombe, England
-          </span>
-        </div>
+
         <h1 class="hero-h1 fade-in">
           WordPress &amp; <span class="grad-text">AI Developer</span><br>
           <span class="dim">building smarter</span><br>digital products.
@@ -526,7 +522,7 @@ footer a:hover{color:var(--white)}
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
             View my work
           </span>
-          <a href="/cdn-cgi/l/email-protection#c0a1bab6afada180a7ada1a9aceea3afad" class="btn-secondary">
+          <a href="mailto:azvoma@gmail.com" class="btn-secondary">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
             Get in touch
           </a>
@@ -631,40 +627,6 @@ footer a:hover{color:var(--white)}
         </div>
       </div>
 
-      <div class="pcard fade-in">
-        <div class="pcard-visual"><div class="pcard-visual-inner pv-wp3">
-          <div class="pv-glow"></div>
-          <div class="pcard-icon-box">
-            <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-          </div>
-          <span class="pcard-vis-label">Headless WordPress</span>
-        </div></div>
-        <div class="pcard-body">
-          <p class="pcard-type">WordPress · Headless</p>
-          <h3 class="pcard-title">Headless WordPress Site with Next.js Frontend</h3>
-          <p class="pcard-desc">WordPress as a headless CMS with a blazing-fast Next.js frontend deployed on Vercel. Sub-1-second loads and a 98 Lighthouse score.</p>
-          <div class="pills"><span class="pill">WordPress REST API</span><span class="pill">Next.js</span><span class="pill">GraphQL</span><span class="pill">Vercel</span></div>
-          <span class="arrow-link" onclick="window.showCase('headless')">View Case Study</span>
-        </div>
-      </div>
-
-      <div class="pcard rev fade-in">
-        <div class="pcard-visual"><div class="pcard-visual-inner pv-ai3">
-          <div class="pv-glow"></div>
-          <div class="pcard-icon-box">
-            <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-          </div>
-          <span class="pcard-vis-label">Image Generation</span>
-        </div></div>
-        <div class="pcard-body">
-          <p class="pcard-type">AI · Image Generation</p>
-          <h3 class="pcard-title">Automated AI Product Image Generator</h3>
-          <p class="pcard-desc">Stable Diffusion + ControlNet pipeline generating lifestyle product images from plain photos. Saved a client £4,000+ per product line in photography costs.</p>
-          <div class="pills"><span class="pill">Stable Diffusion</span><span class="pill">ControlNet</span><span class="pill">Python</span><span class="pill">ComfyUI</span></div>
-          <span class="arrow-link" onclick="window.showCase('imggen')">View Case Study</span>
-        </div>
-      </div>
-
     </div>
   </div><!-- /projects-wrap -->
 
@@ -672,13 +634,13 @@ footer a:hover{color:var(--white)}
   <div class="contact-strip fade-in">
     <h2>Ready to build<br><span class="grad-text">something great?</span></h2>
     <p>Open to freelance projects, long-term partnerships, and exciting new challenges.</p>
-    <a href="/cdn-cgi/l/email-protection#325348445d5f5372555f535b5e1c515d5f" class="btn-primary" style="margin:0 auto">
+    <a href="mailto:azvoma@gmail.com" class="btn-primary" style="margin:0 auto">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
       Get in touch
     </a>
   </div>
 
-  <footer><span>© 2025 Andrew Zvoma</span><span>Get In Touch · <a href="/cdn-cgi/l/email-protection#d6b7aca0b9bbb796b1bbb7bfbaf8b5b9bb"><span class="__cf_email__" data-cfemail="a6c7dcd0c9cbc7e6c1cbc7cfca88c5c9cb">[email&#160;protected]</span></a></span></footer>
+  <footer><span>© 2025 Andrew Zvoma</span><span>Get In Touch · <a href="mailto:azvoma@gmail.com">azvoma@gmail.com</a></span></footer>
 </div><!-- /home -->
 
 <!-- ══════════════════════════════════ ABOUT ══════════════════════════════════ -->
@@ -693,7 +655,7 @@ footer a:hover{color:var(--white)}
       </div>
       <div>
         <span class="s-label fade-in">About Me</span>
-        <h1 class="fade-in" style="font-size:clamp(1.8rem,3.5vw,3rem);font-weight:900;letter-spacing:-.04em;color:var(--white);line-height:1.1;margin-bottom:1.1rem">WordPress &amp; AI Developer<br>based in <span class="grad-text">High Wycombe</span>, England.</h1>
+        <h1 class="fade-in" style="font-size:clamp(1.8rem,3.5vw,3rem);font-weight:900;letter-spacing:-.04em;color:var(--white);line-height:1.1;margin-bottom:1.1rem">WordPress &amp; AI Developer<br><span class="grad-text">based in England.</span></h1>
         <p class="fade-in" style="font-size:.93rem;color:var(--muted);line-height:1.82;max-width:540px">I started out building WordPress sites for small businesses and quickly became obsessed with what happens when you layer AI on top of them. I love the intersection of practical web development and emerging technology — finding ways to make websites smarter, faster, and more useful for real people. When I'm not in my editor, I'm probably exploring new tools, tinkering with automations, or finding new corners of the internet to be curious about.</p>
       </div>
     </div>
@@ -746,7 +708,7 @@ footer a:hover{color:var(--white)}
         <div class="edu-row"><div class="edu-name">Your Degree / Qualification</div><div class="edu-org">Add institution here</div><span class="edu-year">Add year</span></div>
       </div>
       <div style="margin-top:2rem" class="fade-in">
-        <a href="/cdn-cgi/l/email-protection#c5a4bfb3aaa8a485a2a8a4aca9eba6aaa8" class="btn-primary">
+        <a href="mailto:azvoma@gmail.com" class="btn-primary">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
           Request CV
         </a>
@@ -758,12 +720,12 @@ footer a:hover{color:var(--white)}
     <span class="s-label">Let's talk</span>
     <h2>Get <span class="grad-text">In Touch</span></h2>
     <p>Open to freelance work, long-term partnerships, and exciting new challenges.</p>
-    <a href="/cdn-cgi/l/email-protection#a0c1dad6cfcdc1e0c7cdc1c9cc8ec3cfcd" class="btn-primary" style="margin:0 auto">
+    <a href="mailto:azvoma@gmail.com" class="btn-primary" style="margin:0 auto">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-      <span class="__cf_email__" data-cfemail="24455e524b4945644349454d480a474b49">[email&#160;protected]</span>
+      azvoma@gmail.com
     </a>
   </div>
-  <footer><span>© 2025 Andrew Zvoma</span><span><a href="/cdn-cgi/l/email-protection#82e3f8f4edefe3c2e5efe3ebeeace1edef"><span class="__cf_email__" data-cfemail="f1908b879e9c90b1969c90989ddf929e9c">[email&#160;protected]</span></a></span></footer>
+  <footer><span>© 2025 Andrew Zvoma</span><span><a href="mailto:azvoma@gmail.com">azvoma@gmail.com</a></span></footer>
 </div>
 
 <!-- ══════════════════════════════════ PORTFOLIO ══════════════════════════════════ -->
@@ -783,21 +745,20 @@ footer a:hover{color:var(--white)}
     <div class="pcard rev fade-in" data-cat="ai"><div class="pcard-visual"><div class="pcard-visual-inner pv-ai1"><div class="pv-glow"></div><div class="pcard-icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="6" height="6" rx="1"/><path d="M15 3v2M9 3v2M3 9h2M3 15h2M21 9h-2M21 15h-2M9 21v-2M15 21v-2"/><rect x="3" y="3" width="18" height="18" rx="3"/></svg></div><span class="pcard-vis-label">AI Automation</span></div></div><div class="pcard-body"><p class="pcard-type">AI · Automation</p><h3 class="pcard-title">AI-Powered Content Assistant for WordPress Blogs</h3><p class="pcard-desc">WordPress plugin using OpenAI — saves 70%+ of content creation time.</p><div class="pills"><span class="pill">OpenAI API</span><span class="pill">WordPress Plugin</span><span class="pill">PHP</span></div><span class="arrow-link" onclick="window.showCase('ai-content')">View Case Study</span></div></div>
     <div class="pcard fade-in" data-cat="wordpress"><div class="pcard-visual"><div class="pcard-visual-inner pv-wp2"><div class="pv-glow"></div><div class="pcard-icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></div><span class="pcard-vis-label">LMS Platform</span></div></div><div class="pcard-body"><p class="pcard-type">WordPress · LMS</p><h3 class="pcard-title">Membership &amp; Learning Platform for Online Courses</h3><p class="pcard-desc">WordPress multisite + LearnDash with custom tiers. 500+ learners.</p><div class="pills"><span class="pill">WordPress</span><span class="pill">LearnDash</span><span class="pill">MemberPress</span></div><span class="arrow-link" onclick="window.showCase('lms')">View Case Study</span></div></div>
     <div class="pcard rev fade-in" data-cat="ai"><div class="pcard-visual"><div class="pcard-visual-inner pv-ai2"><div class="pv-glow"></div><div class="pcard-icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div><span class="pcard-vis-label">AI Chatbot</span></div></div><div class="pcard-body"><p class="pcard-type">AI · Chatbot</p><h3 class="pcard-title">AI Chatbot Integration for Customer Support</h3><p class="pcard-desc">RAG-based chatbot handling 80% of tier-1 support queries 24/7.</p><div class="pills"><span class="pill">LangChain</span><span class="pill">OpenAI</span><span class="pill">Python</span></div><span class="arrow-link" onclick="window.showCase('chatbot')">View Case Study</span></div></div>
-    <div class="pcard fade-in" data-cat="wordpress"><div class="pcard-visual"><div class="pcard-visual-inner pv-wp3"><div class="pv-glow"></div><div class="pcard-icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div><span class="pcard-vis-label">Headless WordPress</span></div></div><div class="pcard-body"><p class="pcard-type">WordPress · Headless</p><h3 class="pcard-title">Headless WordPress Site with Next.js Frontend</h3><p class="pcard-desc">Decoupled WordPress + Next.js. Sub-1s loads, 98 Lighthouse score.</p><div class="pills"><span class="pill">WordPress REST API</span><span class="pill">Next.js</span><span class="pill">GraphQL</span></div><span class="arrow-link" onclick="window.showCase('headless')">View Case Study</span></div></div>
-    <div class="pcard rev fade-in" data-cat="ai"><div class="pcard-visual"><div class="pcard-visual-inner pv-ai3"><div class="pv-glow"></div><div class="pcard-icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div><span class="pcard-vis-label">Image Generation</span></div></div><div class="pcard-body"><p class="pcard-type">AI · Image Generation</p><h3 class="pcard-title">Automated AI Product Image Generator</h3><p class="pcard-desc">Stable Diffusion + ControlNet pipeline. Saved £4,000+ per product line.</p><div class="pills"><span class="pill">Stable Diffusion</span><span class="pill">ControlNet</span><span class="pill">Python</span></div><span class="arrow-link" onclick="window.showCase('imggen')">View Case Study</span></div></div>
+
   </div>
-  <footer><span>© 2025 Andrew Zvoma</span><span><a href="/cdn-cgi/l/email-protection#34554e425b5955745359555d581a575b59"><span class="__cf_email__" data-cfemail="91f0ebe7fefcf0d1f6fcf0f8fdbff2fefc">[email&#160;protected]</span></a></span></footer>
+  <footer><span>© 2025 Andrew Zvoma</span><span><a href="mailto:azvoma@gmail.com">azvoma@gmail.com</a></span></footer>
 </div>
 
 <!-- ══════════════════════════════════ CASE ══════════════════════════════════ -->
 <div class="page" id="case">
   <div id="case-content"></div>
-  <footer><span>© 2025 Andrew Zvoma</span><span><a href="/cdn-cgi/l/email-protection#721308041d1f1332151f131b1e5c111d1f"><span class="__cf_email__" data-cfemail="026378746d6f6342656f636b6e2c616d6f">[email&#160;protected]</span></a></span></footer>
+  <footer><span>© 2025 Andrew Zvoma</span><span><a href="mailto:azvoma@gmail.com">azvoma@gmail.com</a></span></footer>
 </div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-/* ── ROUTING ── expose on window so inline onclick attrs always resolve ── */
-window.showPage = function showPage(id){
+<script>
+/* ── ROUTING ── defined immediately so onclick attrs always resolve ── */
+window.showPage = function(id){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   document.querySelectorAll('.nav-links a').forEach(a=>a.classList.remove('active'));
@@ -808,11 +769,11 @@ window.showPage = function showPage(id){
   document.querySelectorAll('#'+id+' .fade-in').forEach(el=>el.classList.remove('visible'));
   setTimeout(triggerFades,80);
 }
-window.showCase = function showCase(id){
+window.showCase = function(id){
   document.getElementById('case-content').innerHTML=buildCase(id);
   showPage('case'); setTimeout(initCounters,300);
 }
-window.filterProjects = function filterProjects(cat,el){
+window.filterProjects = function(cat,el){
   document.querySelectorAll('.ftab').forEach(t=>t.classList.remove('active')); el.classList.add('active');
   document.querySelectorAll('#portfolio-list .pcard').forEach(c=>{c.style.display=(cat==='all'||c.dataset.cat===cat)?'grid':'none'});
 }
