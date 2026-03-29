@@ -47,8 +47,19 @@ nav{
 }
 .logo{
   font-size:1.25rem;font-weight:800;letter-spacing:-.02em;
-  color:var(--white);cursor:pointer;text-decoration:none;display:flex;align-items:center;gap:.55rem;
+  color:var(--white);cursor:pointer;text-decoration:none;display:flex;align-items:center;gap:.4rem;
+  background:none;border:none;padding:0;font-family:'Inter',sans-serif;
 }
+.logo-zvoma{
+  background:linear-gradient(135deg,#7c3aed,#a855f7,#c084fc);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.nav-btn{
+  background:none;border:none;padding:0;
+  font-size:.84rem;font-weight:500;color:var(--muted);cursor:pointer;
+  font-family:'Inter',sans-serif;letter-spacing:.01em;transition:color .2s;
+}
+.nav-btn:hover,.nav-btn.active{color:var(--white)}
 
 .nav-links{display:flex;gap:1.8rem;list-style:none;align-items:center}
 .nav-links a{
@@ -59,15 +70,16 @@ nav{
 .nav-pill{
   display:inline-flex;align-items:center;gap:.4rem;
   padding:.55rem 1.3rem;border-radius:50px;
-  background:linear-gradient(135deg,#7c3aed 0%,#a855f7 60%,#c084fc 100%);
-  color:#fff;
+  background:linear-gradient(135deg,#7c3aed 0%,#a855f7 60%,#c084fc 100%) !important;
+  color:#fff !important;
   font-size:.82rem;font-weight:600;cursor:pointer;
-  border:none;text-decoration:none;
-  box-shadow:0 0 20px rgba(124,58,237,.65),0 2px 12px rgba(124,58,237,.45);
+  border:none;text-decoration:none;font-family:'Inter',sans-serif;
+  box-shadow:0 0 20px rgba(124,58,237,.7),0 2px 14px rgba(124,58,237,.5);
   transition:transform .2s,box-shadow .2s;
   letter-spacing:.01em;
+  -webkit-text-fill-color:#fff !important;
 }
-.nav-pill:hover{transform:translateY(-2px);box-shadow:0 0 30px rgba(124,58,237,.85),0 4px 18px rgba(124,58,237,.6)}
+.nav-pill:hover{transform:translateY(-2px);box-shadow:0 0 30px rgba(124,58,237,.9),0 4px 20px rgba(124,58,237,.6)}
 
 /* ══════════════════════════════════════════════  PAGE SYSTEM  */
 .page{display:none;padding-top:66px;min-height:100vh}
@@ -493,13 +505,13 @@ footer a:hover{color:var(--white)}
 
 <!-- ══════ NAV ══════ -->
 <nav>
-  <span class="logo" onclick="window.showPage('home')" style="cursor:pointer">
-    Andrew <span style="background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">Zvoma</span>
-  </span>
+  <button class="logo" onclick="window.showPage('home')">
+    Andrew <span class="logo-zvoma">Zvoma</span>
+  </button>
   <ul class="nav-links">
-    <li><a href="javascript:void(0)" onclick="window.showPage('portfolio')" id="nav-portfolio">Projects</a></li>
-    <li><a href="javascript:void(0)" onclick="window.showPage('about')" id="nav-about">About</a></li>
-    <li><a href="mailto:azvoma@gmail.com" class="nav-pill">Book a call →</a></li>
+    <li><button class="nav-btn" id="nav-portfolio" onclick="window.showPage('portfolio')">Projects</button></li>
+    <li><button class="nav-btn" id="nav-about" onclick="window.showPage('about')">About</button></li>
+    <li><button class="nav-pill" onclick="window.location.href='mai'+'lto:azvoma@gmail.com'">Book a call →</button></li>
   </ul>
 </nav>
 
@@ -544,10 +556,10 @@ footer a:hover{color:var(--white)}
 
   <!-- STATS -->
   <div class="stats-bar fade-in">
-    <div class="stat-item"><div class="stat-n" id="s1">0</div><div class="stat-l">Projects Delivered</div></div>
-    <div class="stat-item"><div class="stat-n" id="s2">0</div><div class="stat-l">Happy Clients</div></div>
-    <div class="stat-item"><div class="stat-n" id="s3">0</div><div class="stat-l">Years Experience</div></div>
-    <div class="stat-item"><div class="stat-n" id="s4">0</div><div class="stat-l">AI Tools Built</div></div>
+    <div class="stat-item"><div class="stat-n">20</div><div class="stat-l">Projects Delivered</div></div>
+    <div class="stat-item"><div class="stat-n">25</div><div class="stat-l">Happy Clients</div></div>
+    <div class="stat-item"><div class="stat-n">5+</div><div class="stat-l">Years Experience</div></div>
+    <div class="stat-item"><div class="stat-n">12+</div><div class="stat-l">AI Tools Built</div></div>
   </div>
 
   <!-- PROJECT CARDS -->
@@ -624,6 +636,24 @@ footer a:hover{color:var(--white)}
           <p class="pcard-desc">RAG-based chatbot trained on product documentation, embedded into WordPress. Handles 80% of tier-1 support queries automatically, 24/7.</p>
           <div class="pills"><span class="pill">LangChain</span><span class="pill">OpenAI</span><span class="pill">Python</span><span class="pill">WordPress REST API</span></div>
           <span class="arrow-link" onclick="window.showCase('chatbot')">View Case Study</span>
+        </div>
+      </div>
+
+
+      <div class="pcard fade-in">
+        <div class="pcard-visual"><div class="pcard-visual-inner pv-wp3">
+          <div class="pv-glow"></div>
+          <div class="pcard-icon-box">
+            <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          </div>
+          <span class="pcard-vis-label">Headless WordPress</span>
+        </div></div>
+        <div class="pcard-body">
+          <p class="pcard-type">WordPress · Headless</p>
+          <h3 class="pcard-title">Headless WordPress Site with Next.js Frontend</h3>
+          <p class="pcard-desc">WordPress as a headless CMS with a blazing-fast Next.js frontend on Vercel. Sub-1-second page loads and a 98 Lighthouse performance score.</p>
+          <div class="pills"><span class="pill">WordPress REST API</span><span class="pill">Next.js</span><span class="pill">GraphQL</span><span class="pill">Vercel</span></div>
+          <span class="arrow-link" onclick="window.showCase('headless')">View Case Study</span>
         </div>
       </div>
 
@@ -761,11 +791,10 @@ footer a:hover{color:var(--white)}
 window.showPage = function(id){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.getElementById(id).classList.add('active');
-  document.querySelectorAll('.nav-links a').forEach(a=>a.classList.remove('active'));
-  if(id==='about') document.getElementById('nav-about').classList.add('active');
-  if(id==='portfolio') document.getElementById('nav-portfolio').classList.add('active');
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  if(id==='about'){var ab=document.getElementById('nav-about');if(ab)ab.classList.add('active');}
+  if(id==='portfolio'){var pb=document.getElementById('nav-portfolio');if(pb)pb.classList.add('active');}
   window.scrollTo(0,0);
-  // Reset fade states on newly shown page then re-observe
   document.querySelectorAll('#'+id+' .fade-in').forEach(el=>el.classList.remove('visible'));
   setTimeout(triggerFades,80);
 }
@@ -792,7 +821,7 @@ function triggerFades(){
   },600);
 }
 // Fire on load OR immediately if already loaded
-function initPage(){triggerFades();animateHomeStats();}
+function initPage(){triggerFades();}
 if(document.readyState==='complete'){initPage();}
 else{window.addEventListener('load',initPage);}
 
@@ -929,12 +958,4 @@ function buildCase(id){
   <p>Based on feedback collected during testing, the following improvements were designed and implemented:</p>
   <div class="ba-wrap">
     <div><span class="ba-lbl ba-before">Before</span><div class="ba-box">Initial version — describe the original approach and what users found unclear or frustrating about it.</div></div>
-    <div><span class="ba-lbl ba-after">After</span><div class="ba-box">Improved version — describe what changed, why, and the measurable impact on the overall experience.</div></div>
-  </div>
-
-  <span class="phase-badge">Closing</span>
-  <h2>Future Impact</h2>
-  <div class="pov-list">
-    <div class="pov-item"><div class="pov-num">1</div><div class="pov-text"><strong>Enhanced Personalisation:</strong> As usage data grows, the solution can become smarter — automating decisions and offering more tailored recommendations.</div></div>
-    <div class="pov-item"><div class="pov-num">2</div><div class="pov-text"><strong>Third-Party Integrations:</strong> Connecting with CRMs, analytics, and email platforms in the client's stack would multiply the value delivered.</div></div>
-    <div class="pov-item"><div class="pov-num">3</div><div class="pov-text"><strong>Expanded Scope:</strong> Future iterations could address adjac    <div class="pov-item"><div class="pov-num">3</div><div class="pov-text"><strong>Expanded Scope:</strong> Future iterations could address adjace
+    <div><span class="ba-lbl ba-after">After</span><div class="ba-box">Improved version — describe what changed, why, and the measurable impact on the overall experi
