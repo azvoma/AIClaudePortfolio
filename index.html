@@ -158,6 +158,49 @@ footer > div {max-width:1200px;margin:0 auto;display:flex;justify-content:space-
   .hero {padding:4rem 5vw}
   .section {padding:3rem 5vw}
 }
+
+/* Center specific sections */
+#projects .section-inner,
+#skills .section-inner,
+#education .section-inner,
+#process .section-inner {
+  text-align: center;
+}
+
+#projects .section-label,
+#skills .section-label,
+#education .section-label,
+#process .section-label {
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#projects h2,
+#skills h2,
+#education h2,
+#process h2 {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#projects > .section-inner > p,
+#education > .section-inner > p {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#skills .skills-grid,
+#education .edu-grid {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#process .process {
+  margin-left: auto;
+  margin-right: auto;
+}
 </style>
 </head>
 <body>
@@ -177,7 +220,6 @@ footer > div {max-width:1200px;margin:0 auto;display:flex;justify-content:space-
 <!-- HERO -->
 <main class="page active" id="pg-home">
   <section class="hero" id="home">
-    <div class="hero-badge">Open to opportunities</div>
     <h1>Hi, I'm Andrew Zvoma<br><span class="grad">AI Engineer & Machine Learning Specialist</span></h1>
     <p class="hero-sub">Building production-ready AI systems with Large Language Models, RAG systems, and prompt engineering. 3+ years turning complex ML problems into elegant, scalable solutions across SaaS, fintech, and enterprise platforms.</p>
     
@@ -312,7 +354,7 @@ footer > div {max-width:1200px;margin:0 auto;display:flex;justify-content:space-
   </section>
 
   <!-- SKILLS SECTION -->
-  <section class="section">
+  <section class="section" id="skills">
     <div class="section-inner">
       <div class="section-label">What I Bring</div>
       <h2>Skills & Expertise</h2>
@@ -371,7 +413,7 @@ footer > div {max-width:1200px;margin:0 auto;display:flex;justify-content:space-
   </section>
 
   <!-- EDUCATION SECTION -->
-  <section class="section">
+  <section class="section" id="education">
     <div class="section-inner">
       <div class="section-label">Continuous Learning</div>
       <h2>Education & Certifications</h2>
@@ -423,7 +465,7 @@ footer > div {max-width:1200px;margin:0 auto;display:flex;justify-content:space-
   </section>
 
   <!-- PROCESS SECTION -->
-  <section class="section">
+  <section class="section" id="process">
     <div class="section-inner">
       <div class="section-label">How I Work</div>
       <h2>Modern AI Development Workflow</h2>
