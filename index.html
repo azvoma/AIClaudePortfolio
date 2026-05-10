@@ -113,7 +113,7 @@ nav > div {max-width:1200px;margin:0 auto;display:flex;justify-content:space-bet
 .tag:hover {border-color:#7c3aed;color:#7c3aed}
 
 /* EDUCATION */
-.edu-grid {display:grid;grid-template-columns:1fr;gap:1.5rem;margin-top:2rem}
+.edu-grid {display:grid;grid-template-columns:repeat(2,1fr);gap:2rem;margin-top:2rem}
 .edu-item {padding:1.5rem;border:1px solid #eee;border-radius:12px;transition:border-color .2s}
 .edu-item:hover {border-color:#7c3aed}
 .edu-name {font-size:1rem;font-weight:700;color:#1a1a1a;margin-bottom:.2rem}
@@ -157,6 +157,7 @@ footer > div {max-width:1200px;margin:0 auto;display:flex;justify-content:space-
   .nav-links {gap:1rem;font-size:.85rem}
   .hero {padding:4rem 5vw}
   .section {padding:3rem 5vw}
+  .edu-grid {grid-template-columns:1fr !important}
 }
 
 /* Center specific sections */
@@ -419,9 +420,24 @@ footer > div {max-width:1200px;margin:0 auto;display:flex;justify-content:space-
     <div class="section-inner">
       <div class="section-label">Continuous Learning</div>
       <h2>Education & Certifications</h2>
-      <p style="color:#666;margin-bottom:2rem;max-width:600px">Recent certifications and courses from DataCamp, focused on modern AI/ML engineering practices and production deployment.</p>
+      <p style="color:#666;margin-bottom:2rem;max-width:600px">Degree-level education combined with professional certifications in UX/UI design and modern AI/ML engineering practices.</p>
 
       <div class="edu-grid">
+        <div class="edu-item">
+          <div class="edu-name">Graphic Design Degree</div>
+          <div class="edu-org">University of West London</div>
+          <div class="edu-year">2019</div>
+        </div>
+        <div class="edu-item">
+          <div class="edu-name">UX/UI Nanodegree</div>
+          <div class="edu-org">Udacity</div>
+          <div class="edu-year">2020</div>
+        </div>
+        <div class="edu-item">
+          <div class="edu-name">Prince2 Agile</div>
+          <div class="edu-org">Project Management Certification</div>
+          <div class="edu-year">2017</div>
+        </div>
         <div class="edu-item">
           <div class="edu-name">Prompt Engineering for LLMs</div>
           <div class="edu-org">DataCamp</div>
