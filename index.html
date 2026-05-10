@@ -160,71 +160,48 @@ footer > div {max-width:1200px;margin:0 auto;display:flex;justify-content:space-
 }
 
 /* Center specific sections */
-#projects .section-inner {
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-#skills .section-inner {
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-#education .section-inner {
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
+#projects .section-inner,
+#skills .section-inner,
+#education .section-inner,
 #process .section-inner {
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  text-align: center !important;
+  max-width: 100%;
 }
 
 #projects .section-label,
 #skills .section-label,
 #education .section-label,
 #process .section-label {
-  text-align: center;
+  text-align: center !important;
+  justify-content: center !important;
 }
 
 #projects h2,
 #skills h2,
 #education h2,
 #process h2 {
-  text-align: center;
-  width: 100%;
+  text-align: center !important;
 }
 
 #projects > .section-inner > p,
 #education > .section-inner > p {
-  text-align: center;
-  width: 100%;
-}
-
-#projects .cs-grid {
-  width: 100%;
+  text-align: center !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
 }
 
 #skills .skills-grid {
-  width: 100%;
-  justify-items: center;
+  justify-items: center !important;
 }
 
 #education .edu-grid {
-  width: 100%;
-  max-width: 600px;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  display: grid !important;
 }
 
 #process .process {
-  width: 100%;
+  justify-items: center !important;
 }
 </style>
 </head>
