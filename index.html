@@ -200,7 +200,7 @@ footer>div{max-width:1200px;margin:0 auto;display:flex;justify-content:space-bet
 .seo-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:2rem}
 .seo-card{border:1px solid #e5e7eb;border-radius:12px;overflow:hidden;transition:border-color .2s,box-shadow .2s;cursor:pointer;background:#fff}
 .seo-card:hover{border-color:#10b981;box-shadow:0 6px 24px rgba(16,185,129,.1)}
-.seo-card-thumb{height:130px;display:flex;align-items:center;justify-content:center;font-size:2.5rem;position:relative}
+.seo-card-thumb{height:160px;display:flex;align-items:center;justify-content:center;font-size:2.5rem;position:relative;overflow:hidden;border-bottom:1px solid #e5e7eb}
 .seo-card-thumb.sm1{background:linear-gradient(135deg,#0f766e18,#10b98118)}
 .seo-card-thumb.sm2{background:linear-gradient(135deg,#1e40af18,#3b82f618)}
 .seo-card-thumb.sm3{background:linear-gradient(135deg,#7c2d1218,#dc262618)}
@@ -218,7 +218,7 @@ footer>div{max-width:1200px;margin:0 auto;display:flex;justify-content:space-bet
 /* SEO CASE STUDY PAGES */
 .seo-cs-page{display:none;padding-top:62px;min-height:100vh}
 .seo-cs-page.active{display:block}
-.seo-cs-header{padding:3.5rem 5vw 2.5rem;background:linear-gradient(180deg,#f0fdf4,#fff);border-bottom:1px solid #e5e7eb}
+.seo-cs-header{padding:2.5rem 5vw 2.5rem;background:#fff;border-bottom:1px solid #e5e7eb}
 .seo-cs-header-inner{max-width:860px;margin:0 auto}
 .seo-hdr-tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:1.1rem}
 .seo-hdr-tag{padding:.22rem .7rem;border-radius:50px;background:rgba(16,185,129,.12);color:#059669;font-size:.7rem;font-weight:700}
@@ -271,6 +271,11 @@ footer>div{max-width:1200px;margin:0 auto;display:flex;justify-content:space-bet
 .seo-cs-nav{display:flex;justify-content:space-between;align-items:center;padding:1.75rem 0;border-top:1px solid #e5e7eb;margin-top:2.5rem;flex-wrap:wrap;gap:1rem}
 .btn-green{background:linear-gradient(135deg,#059669,#10b981);box-shadow:0 4px 15px rgba(16,185,129,.3)}
 .btn-green:hover{box-shadow:0 6px 20px rgba(16,185,129,.4)}
+
+/* SEO CS HERO IMAGE */
+.seo-hero-img{width:100%;max-height:440px;object-fit:cover;object-position:top center;display:block}
+.seo-hero-img-wrap{overflow:hidden;border-bottom:1px solid #e5e7eb;position:relative}
+.seo-hero-img-wrap::after{content:'';position:absolute;bottom:0;left:0;right:0;height:60px;background:linear-gradient(to bottom,transparent,#fff);pointer-events:none}
 
 /* RESPONSIVE */
 @media(max-width:768px){
@@ -335,109 +340,18 @@ footer>div{max-width:1200px;margin:0 auto;display:flex;justify-content:space-bet
   <section class="section" id="projects">
     <div class="section-inner">
       <div class="section-label">Selected Work</div>
-      <h2>Case Studies</h2>
-      <div class="dtabs">
-        <button class="dtab active" onclick="filterCS('all',this)">All Work</button>
-        <button class="dtab" onclick="filterCS('ux',this)">UX/UI Design</button>
-        <button class="dtab" onclick="filterCS('ai',this)">AI Engineering</button>
-        <button class="dtab" onclick="filterCS('seo',this)">AI-Built SEO Sites</button>
-      </div>
-      <div class="cs-grid" id="csgrid">
-
-        <div class="cs-card" data-d="ux">
-          <div class="cs-visual vblue">♿</div>
-          <div class="cs-content">
-            <div class="cs-meta"><span class="cs-badge ux">GDS · Accessibility</span><span class="cs-dur">10 Weeks</span></div>
-            <h3>Blue Badge Digital Companion</h3>
-            <p class="cs-desc">A GDS-compliant redesign of the Blue Badge application service — replacing a paper-heavy, inaccessible process with a clear, inclusive digital service for 2.5 million eligible users across England.</p>
-            <div class="cs-kpis">
-              <div><div class="kpi-val">40%</div><div class="kpi-lbl">Drop-off reduction</div></div>
-              <div><div class="kpi-val">85%</div><div class="kpi-lbl">Fewer support calls</div></div>
-              <div><div class="kpi-val">100%</div><div class="kpi-lbl">WCAG 2.2 AA</div></div>
-            </div>
-            <button class="cs-cta" onclick="showCS('cs-bb')">Read Full Case Study →</button>
-          </div>
-        </div>
-
-        <div class="cs-card rev" data-d="ux">
-          <div class="cs-visual vgold">🛍️</div>
-          <div class="cs-content">
-            <div class="cs-meta"><span class="cs-badge ux">Luxury · E-commerce</span><span class="cs-dur">8 Weeks</span></div>
-            <h3>Harrods Pre-Order Feature</h3>
-            <p class="cs-desc">A luxury-grade pre-order experience giving high-intent Harrods customers guaranteed access to limited releases — designed and delivered in 8 weeks while meeting strict brand standards.</p>
-            <div class="cs-kpis">
-              <div><div class="kpi-val">85%</div><div class="kpi-lbl">Support queries ↓</div></div>
-              <div><div class="kpi-val">100%</div><div class="kpi-lbl">Task completion</div></div>
-            </div>
-            <button class="cs-cta" onclick="showCS('cs-harrods')">Read Full Case Study →</button>
-          </div>
-        </div>
-
-        <div class="cs-card" data-d="ux">
-          <div class="cs-visual vteal">🏥</div>
-          <div class="cs-content">
-            <div class="cs-meta"><span class="cs-badge ux">Healthcare · Mobile</span><span class="cs-dur">3 Months</span></div>
-            <h3>SurgeryPrep Mobile App</h3>
-            <p class="cs-desc">A personalised surgical companion guiding patients through every stage of their surgical journey — reducing anxiety, improving adherence, and freeing clinical staff from repetitive queries.</p>
-            <div class="cs-kpis">
-              <div><div class="kpi-val">100%</div><div class="kpi-lbl">Task completion</div></div>
-              <div><div class="kpi-val">↓</div><div class="kpi-lbl">Anxiety calls</div></div>
-            </div>
-            <button class="cs-cta" onclick="showCS('cs-sp')">Read Full Case Study →</button>
-          </div>
-        </div>
-
-        <div class="cs-card rev" data-d="ux">
-          <div class="cs-visual vnavy">💨</div>
-          <div class="cs-content">
-            <div class="cs-meta"><span class="cs-badge ux">Design Sprint · Brand</span><span class="cs-dur">5 Days</span></div>
-            <h3>Blu Vape Brand Reimagination</h3>
-            <p class="cs-desc">A 5-day Google Design Sprint — moving from strategic ambiguity to a validated loyalty ecosystem and brand direction with 87% user approval and full stakeholder alignment in one week.</p>
-            <div class="cs-kpis">
-              <div><div class="kpi-val">87%</div><div class="kpi-lbl">User approval</div></div>
-              <div><div class="kpi-val">100%</div><div class="kpi-lbl">Valued starter kits</div></div>
-            </div>
-            <button class="cs-cta" onclick="showCS('cs-bv')">Read Full Case Study →</button>
-          </div>
-        </div>
-
-        <div class="cs-card" data-d="ai">
-          <div class="cs-visual">🤖</div>
-          <div class="cs-content">
-            <div class="cs-meta"><span class="cs-badge">LLM · RAG</span><span class="cs-dur">8 Weeks</span></div>
-            <h3>Intelligent Document Q&amp;A System</h3>
-            <p class="cs-desc">A RAG-powered chatbot using LangChain, OpenAI, and Pinecone that answers complex questions from 500+ pages of technical documentation with 92% accuracy. Reduced support ticket volume by 60%.</p>
-            <div class="cs-kpis">
-              <div><div class="kpi-val">92%</div><div class="kpi-lbl">Accuracy</div></div>
-              <div><div class="kpi-val">60%</div><div class="kpi-lbl">Fewer tickets</div></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="cs-card rev" data-d="ai">
-          <div class="cs-visual">📊</div>
-          <div class="cs-content">
-            <div class="cs-meta"><span class="cs-badge">ML · NLP</span><span class="cs-dur">6 Weeks</span></div>
-            <h3>Real-Time Sentiment Analysis API</h3>
-            <p class="cs-desc">A production sentiment analysis API using Hugging Face transformers, processing 10k+ customer reviews per day at 94% accuracy. Fine-tuned on domain-specific e-commerce data.</p>
-            <div class="cs-kpis">
-              <div><div class="kpi-val">94%</div><div class="kpi-lbl">Accuracy</div></div>
-              <div><div class="kpi-val">10k+</div><div class="kpi-lbl">Reviews/day</div></div>
-            </div>
-          </div>
-        </div>
-
-      </div>
+      <h2>AI-Built Projects</h2>
+      <p style="color:#666;font-size:.92rem;margin-bottom:2rem;max-width:620px">End-to-end production from keyword research and domain selection to AI-generated content and Netlify deployment — each site demonstrating a different facet of prompt engineering and AI-assisted development.</p>
+      <div id="csgrid"></div>
 
       <!-- SEO PROJECTS ROW -->
-      <div id="seo-row" style="">
-        <div class="seo-row-label">AI-Built SEO Sites</div>
-        <div class="seo-row-heading">Niche Site Portfolio — Built with AI &amp; Prompt Engineering</div>
-        <div class="seo-row-sub">End-to-end production from keyword research and domain selection to AI-generated content, Astro/Bolt.new builds, and Netlify deployment.</div>
+      <div id="seo-row">
         <div class="seo-cards">
 
           <div class="seo-card" onclick="showSeoCS('seo-mountains')">
-            <div class="seo-card-thumb sm1">🏔️</div>
+            <div class="seo-card-thumb sm1" style="padding:0;overflow:hidden">
+              <img src="img_mountains.jpg" alt="UK Mountains Directory homepage" style="width:100%;height:100%;object-fit:cover;object-position:top center;display:block"/>
+            </div>
             <div class="seo-card-body">
               <div class="seo-card-badge">Nature · Directory</div>
               <div class="seo-card-title">UK Mountains Directory</div>
@@ -451,7 +365,9 @@ footer>div{max-width:1200px;margin:0 auto;display:flex;justify-content:space-bet
           </div>
 
           <div class="seo-card" onclick="showSeoCS('seo-rivers')">
-            <div class="seo-card-thumb sm2">🌊</div>
+            <div class="seo-card-thumb sm2" style="padding:0;overflow:hidden">
+              <img src="img_rivers.jpg" alt="UK Rivers Directory homepage" style="width:100%;height:100%;object-fit:cover;object-position:top center;display:block"/>
+            </div>
             <div class="seo-card-body">
               <div class="seo-card-badge">Nature · Guide</div>
               <div class="seo-card-title">UK Rivers Directory</div>
@@ -465,7 +381,9 @@ footer>div{max-width:1200px;margin:0 auto;display:flex;justify-content:space-bet
           </div>
 
           <div class="seo-card" onclick="showSeoCS('seo-scrum')">
-            <div class="seo-card-thumb sm3">🏉</div>
+            <div class="seo-card-thumb sm3" style="padding:0;overflow:hidden">
+              <img src="img_scrum.jpg" alt="5Metre Scrum homepage" style="width:100%;height:100%;object-fit:cover;object-position:top center;display:block"/>
+            </div>
             <div class="seo-card-body">
               <div class="seo-card-badge">SaaS · Rugby Tech</div>
               <div class="seo-card-title">5Metre Scrum</div>
@@ -479,7 +397,9 @@ footer>div{max-width:1200px;margin:0 auto;display:flex;justify-content:space-bet
           </div>
 
           <div class="seo-card" onclick="showSeoCS('seo-rugby')">
-            <div class="seo-card-thumb sm4">🌍</div>
+            <div class="seo-card-thumb sm4" style="padding:0;overflow:hidden">
+              <img src="img_rugby.jpg" alt="UK Rugby Club Directory homepage" style="width:100%;height:100%;object-fit:cover;object-position:top center;display:block"/>
+            </div>
             <div class="seo-card-body">
               <div class="seo-card-badge">Directory · Sport</div>
               <div class="seo-card-title">UK Rugby Club Directory</div>
@@ -959,6 +879,9 @@ footer>div{max-width:1200px;margin:0 auto;display:flex;justify-content:space-bet
 
 <!-- ========== SEO CS: UK MOUNTAINS ========== -->
 <div class="seo-cs-page" id="seo-mountains">
+  <div class="seo-hero-img-wrap">
+    <img src="img_mountains.jpg" alt="UK Mountains Directory — homepage screenshot" class="seo-hero-img"/>
+  </div>
   <div class="seo-cs-header">
     <div class="seo-cs-header-inner">
       <button class="cs-back" onclick="showPage('home');setTimeout(()=>scrollTo('projects'),120)">← Back to Case Studies</button>
@@ -1053,6 +976,9 @@ footer>div{max-width:1200px;margin:0 auto;display:flex;justify-content:space-bet
 
 <!-- ========== SEO CS: UK RIVERS ========== -->
 <div class="seo-cs-page" id="seo-rivers">
+  <div class="seo-hero-img-wrap">
+    <img src="img_rivers.jpg" alt="UK Rivers Directory — homepage screenshot" class="seo-hero-img"/>
+  </div>
   <div class="seo-cs-header">
     <div class="seo-cs-header-inner">
       <button class="cs-back" onclick="showPage('home');setTimeout(()=>scrollTo('projects'),120)">← Back to Case Studies</button>
@@ -1149,6 +1075,9 @@ Output JSON only.
 
 <!-- ========== SEO CS: 5METRE SCRUM ========== -->
 <div class="seo-cs-page" id="seo-scrum">
+  <div class="seo-hero-img-wrap">
+    <img src="img_scrum.jpg" alt="5Metre Scrum — homepage screenshot" class="seo-hero-img"/>
+  </div>
   <div class="seo-cs-header">
     <div class="seo-cs-header-inner">
       <button class="cs-back" onclick="showPage('home');setTimeout(()=>scrollTo('projects'),120)">← Back to Case Studies</button>
@@ -1246,6 +1175,9 @@ Build the ScoutBoard component. It should:
 
 <!-- ========== SEO CS: UK RUGBY CLUB DIRECTORY ========== -->
 <div class="seo-cs-page" id="seo-rugby">
+  <div class="seo-hero-img-wrap">
+    <img src="img_rugby.jpg" alt="UK Rugby Club Directory — homepage screenshot" class="seo-hero-img"/>
+  </div>
   <div class="seo-cs-header">
     <div class="seo-cs-header-inner">
       <button class="cs-back" onclick="showPage('home');setTimeout(()=>scrollTo('projects'),120)">← Back to Case Studies</button>
@@ -1384,21 +1316,6 @@ function showSeoCS(id){
 function scrollTo(id){
   var el=document.getElementById(id);
   if(el){el.scrollIntoView({behavior:'smooth'});}
-}
-
-function filterCS(disc,btn){
-  document.querySelectorAll('.dtab').forEach(function(b){b.classList.remove('active');});
-  btn.classList.add('active');
-  // Regular case study cards
-  document.querySelectorAll('.cs-card').forEach(function(card){
-    if(disc==='all'||card.dataset.d===disc){card.style.display='grid';}
-    else{card.style.display='none';}
-  });
-  // SEO row
-  var seoRow=document.getElementById('seo-row');
-  if(seoRow){
-    seoRow.style.display=(disc==='all'||disc==='seo')?'':'none';
-  }
 }
 </script>
 </body>
